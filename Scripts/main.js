@@ -1,13 +1,13 @@
-;(function() {
+;(async function() {
 	// Think_aloud interactions should be ignored in most cases, see Dataset README.txt
-	function readData(segmentationPath, interactionLog)
+	async function readData(segmentationPath, interactionLog)
 	{
 		const segmentationPathComplete = "Data/Dataset_1/Segmentation/" + segmentationPath;
 		const interactionLogComplete = "Data/Dataset_1/UserInteractions/" + interactionLog;
 
-		d3.csv(segmentationPathComplete).then(function(csvData) {
+		return d3.csv(segmentationPathComplete).then(function(csvData){
 			console.log(csvData)
-			d3.json(interactionLogComplete).then(function(jsonData) {
+			return d3.json(interactionLogComplete).then(function(jsonData){
 				console.log(jsonData)
 				
 				var segmentInteractionData = csvData.map((segmentData) => {
@@ -34,10 +34,18 @@
 					})
 				});
 				console.log(count)
+				return segmentInteractionData;
 
 			}).catch(function(error) { console.warn(error)} )
 		}).catch(function(error) { console.warn(error)} )
 	}
 
-	readData("Arms_P1_20_4_6_Prov_Segments.csv", "Arms_P1_InteractionsLogs.json");
+	// var files = fs.readdirSync('./Data/Dataset_1/UserInteractions/');
+
+	// console.log(files)
+	let segmentationPath1 = "Arms_P1_20_4_6_Prov_Segments.csv";
+	let interactionLogPath1 = "Arms_P1_InteractionsLogs.json";
+
+	let segmentInteractionArr = await readData(segmentationPath1,interactionLogPath1);
+	console.log("Arr: ",segmentInteractionArr);
 })();
