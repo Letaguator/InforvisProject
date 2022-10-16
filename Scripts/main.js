@@ -8,9 +8,17 @@
 			console.log(csvData)
 			d3.json(interactionLog).then(function(jsonData){
 				console.log(jsonData)
-				
-			}).catch(function(error) {console.warn(error)})
-		}).catch(function(error) {console.warn(error)})
+				var segmentInteractionData = csvData.map((segmentData) => {
+					segmentData.interactions = jsonData.filter(interaction => {
+						interactionEndTime = interaction.time + interaction.duration;
+						return interaction.time >= segmentData.start && interactionEndTime <= segmentData.end;
+					});
+					return segmentData;
+				});
+				console.log(segmentInteractionData)
+
+			}).catch(function(error) { console.warn(error)} )
+		}).catch(function(error) { console.warn(error)} )
 	}
 
 	readData();
