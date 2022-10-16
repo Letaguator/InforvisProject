@@ -19,7 +19,7 @@
 				
 				var segmentInteractionData = csvData.map((segmentData) => {
 					segmentData.interactions = jsonData.filter(interaction => {
-						interactionEndTime = interaction.time;
+						let interactionEndTime = interaction.time;
 						// Compensate for only Reading and Doc_open interaction types having durations
 						if(interaction.InteractionType === "Reading" || interaction.InteractionType === "Doc_open")
 							interactionEndTime = interaction.time + interaction.duration;
