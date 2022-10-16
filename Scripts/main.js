@@ -9,20 +9,23 @@
 			console.log(csvData)
 			return d3.json(interactionLogComplete).then(function(jsonData){
 				console.log(jsonData)
+
+				// Compensate for errounous numbers for interactions
+				jsonData = jsonData.map(interaction => {
+					interaction.duration /= 10;
+					interaction.time /= 10;
+					return interaction;
+				});
 				
 				var segmentInteractionData = csvData.map((segmentData) => {
 					segmentData.interactions = jsonData.filter(interaction => {
-						// Compensate for errounous numbers for interactions
-						interaction.duration /= 10;
-						interaction.time /= 10;
-						
 						interactionEndTime = interaction.time;
 						// Compensate for only Reading and Doc_open interaction types having durations
 						if(interaction.InteractionType === "Reading" || interaction.InteractionType === "Doc_open")
 							interactionEndTime = interaction.time + interaction.duration;
 						// interactionEndTime = interaction.time;
 
-						return (interaction.time >= segmentData.start) && (interactionEndTime <= segmentData.end);
+						return (interaction.time >= segmentData.start) && (interactionEndTime < segmentData.end);
 					});
 					return segmentData;
 				});
