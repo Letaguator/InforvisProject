@@ -1,10 +1,9 @@
 ;(async function() {
-
-
+    // Data preperation
 	let ds1_UISegmented = await readDataAsync(FILEPATHS[0][0], FILEPATHS[0][1]);
 	console.log("Arr: ", ds1_UISegmented );
 
-	//creating set of interaction types 
+	// Creating set of interaction types 
 	const interactionTypes = new Set()
 	for(let i = 0; i < ds1_UISegmented.length; i++){
 		for(let j = 0; j < ds1_UISegmented[i].interactions.length; j++){
@@ -29,15 +28,26 @@
 	for(let i =0; i < interactionCount.length; i++){
 		console.log(interactionCount[i]);
 	}
-
 	
+    // Data loading
+    
+    var barchartDiv = document.getElementById("barchartDiv");
+    barchartDiv.style.width = 600;
+    barchartDiv.style.height = 600;
 
-	
-    // -----
-    // Format [{actionName: name, Count:count}, {actionName, Count}, {actionName, Count}, {actionName, Count}, {actionName, Count}]
-	let segmentationPath1 = "Arms_P1_20_4_6_Prov_Segments.csv";
-	let interactionLogPath1 = "Arms_P1_InteractionsLogs.json";
-
-	let segmentInteractionArr = await readDataAsync(segmentationPath1, interactionLogPath1);
-	console.log("Arr: ", segmentInteractionArr);
+    barChart = BarChart(
+        interactionCount,
+        {
+            x: (d) => d.actionName,
+            y: (d) => d.count,
+            yLabel: "Count",
+            yDomain: [0, 200],
+            width: 700,
+            height: 600,
+            xPadding: 0.3,
+            color: "darkgreen"
+        })
+    
+    barchartDiv.append(barChart);
+    
 })();

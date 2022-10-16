@@ -3,15 +3,21 @@
 <head>
 <title>Log Visualizer</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" href="./Styles/style.css">
 	<link rel="stylesheet" href="./Styles/simple-style.css">
 	<!-- <link rel="icon" href="./favicon/favicon.ico"> -->
 </head>
 
 <body>
-	<div id="timelineDiv"></div>
-	<div id="barchartDiv"></div>
+	<div id="appDiv">
+		<div id="timelineDiv"></div>
+		<div id="barchartDiv">
+			<h2>Interaction counts</h2>
+		</div>
+	</div>
 
 	<script src="./Libraries/d3.v7.min.js"></script>
+	<script src="./Libraries/barchartLib.js"></script>
 	<script src="./Scripts/main.js"></script>
 	<script src="./Scripts/barchart.js"></script>
 </body>
