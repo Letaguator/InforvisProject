@@ -37,11 +37,10 @@ async function readDataAsync(segmentationPath, interactionLog)
 	}).catch(function(error) { console.warn(error)} )
 }
 
-// var files = fs.readdirSync('./Data/Dataset_1/UserInteractions/');
+
 
 // console.log(files)
-let segmentationPath1 = "Arms_P1_20_4_6_Prov_Segments.csv";
-let interactionLogPath1 = "Arms_P1_InteractionsLogs.json";
+const FILEPATHS = [["Arms_P1_20_4_6_Prov_Segments.csv","Arms_P1_InteractionsLogs.json"],["Arms_P2_20_4_6_Prov_Segments.csv","Arms_P2_InteractionsLogs.json"],["Arms_P3_20_4_6_Prov_Segments.csv","Arms_P3_InteractionsLogs.json"],["Arms_P4_20_4_6_Prov_Segments.csv","Arms_P4_InteractionsLogs.json"],["Arms_P5_20_4_6_Prov_Segments.csv","Arms_P5_InteractionsLogs.json"],["Arms_P6_20_4_6_Prov_Segments.csv","Arms_P6_InteractionsLogs.json"],["Arms_P7_20_4_6_Prov_Segments.csv","Arms_P7_InteractionsLogs.json"],["Arms_P8_20_4_6_Prov_Segments.csv","Arms_P8_InteractionsLogs.json"]];
 
-// let segmentInteractionArr = await readDataAsync(segmentationPath1, interactionLogPath1);
-// console.log("Arr: ", segmentInteractionArr);
+
+
