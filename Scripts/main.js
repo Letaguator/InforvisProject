@@ -16,12 +16,13 @@
 						interaction.duration /= 10;
 						interaction.time /= 10;
 						
-						interactionEndTime = interaction.time + interaction.duration;
-						if(interaction.InteractionType != "Reading" && interaction.InteractionType != "Doc_open")
-							interactionEndTime = interaction.time;
+						interactionEndTime = interaction.time;
+						// Compensate for only Reading and Doc_open interaction types having durations
+						if(interaction.InteractionType === "Reading" || interaction.InteractionType === "Doc_open")
+							interactionEndTime = interaction.time + interaction.duration;
 						// interactionEndTime = interaction.time;
 
-						return interaction.time >= segmentData.start && interactionEndTime <= segmentData.end;
+						return (interaction.time >= segmentData.start) && (interactionEndTime <= segmentData.end);
 					});
 					return segmentData;
 				});
