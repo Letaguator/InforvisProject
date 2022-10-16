@@ -1,1 +1,7 @@
 # infovisProject
+
+# Group
+ - Mathias Brekkan
+ -
+ -
+ -
