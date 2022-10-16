@@ -12,8 +12,8 @@
 
 				// Compensate for errounous numbers for interactions
 				jsonData = jsonData.map(interaction => {
-					interaction.duration /= 10;
-					interaction.time /= 10;
+					interaction.time = interaction.time / 10;
+					// interaction.duration /= 10;
 					return interaction;
 				});
 				
