@@ -10,7 +10,6 @@
 			interactionTypes.add(ds1_UISegmented[i].interactions[j].InteractionType)
 		}
 	}
-
 	let interactionCount = [];
 
 	for (const item of interactionTypes) {
@@ -24,12 +23,58 @@
 			++entry.count;
 		}
 	}
-
-	for(let i =0; i < interactionCount.length; i++){
-		console.log(interactionCount[i]);
+	// Creating a set for documents opened
+	const documentOpens = new Set()
+	for(let i = 0; i < ds1_UISegmented.length; i++){
+		for(let j = 0; j < ds1_UISegmented[i].interactions.length; j++){
+			if(ds1_UISegmented[i].interactions[j].InteractionType === "Doc_open"){
+				documentOpens.add(ds1_UISegmented[i].interactions[j]);
+			}
+		}
 	}
+
+	let documentOpen = new Map();
+	for (const item of documentOpens) {
+		if(documentOpen.has(item.Text)){
+			let duration = documentOpen.get(item.Text);
+			documentOpen.set(item.Text, item.duration + duration);
+		}else{
+			documentOpen.set(item.Text,item.duration);
+		}
+	}
+
+	const sortedDocuments = new Map([...documentOpen.entries()].sort((a, b) => b[1] - a[1]));
+	const sortedDocKeys = Array.from(sortedDocuments.keys());
+	const sortedDocVals = Array.from(sortedDocuments.values());
+	let top10Documents  = [];
+
+	for (let i = 0; i < 10; i++) {
+		let obj = {documentName: sortedDocKeys[i], duration: sortedDocVals[i]/10};
+		top10Documents.push(obj);
+	}
+	// Documents visited for the longest time
+		var docVisitsBarchartDiv = document.getElementById("docVisitsBarchartDiv");
+		docVisitsBarchartDiv.style.width = 600;
+		docVisitsBarchartDiv.style.height = 600;
 	
-    // Data loading
+		docVisitsBarChart = BarChart(
+			top10Documents,
+			{
+				x: (d) => d.documentName,
+				y: (d) => d.duration,
+				yLabel: "Seconds",
+				yDomain: [0, 1500],
+				width: 500,
+				height: 500,
+				xPadding: 0.3,
+				color: "darkgreen"
+			})
+		
+			docVisitsBarchartDiv.append(docVisitsBarChart);
+	
+
+	
+    // Interaction Count Chart
     
     var barchartDiv = document.getElementById("barchartDiv");
     barchartDiv.style.width = 600;
@@ -42,8 +87,8 @@
             y: (d) => d.count,
             yLabel: "Count",
             yDomain: [0, 200],
-            width: 700,
-            height: 600,
+            width: 500,
+            height: 500,
             xPadding: 0.3,
             color: "darkgreen"
         })

@@ -1,17 +1,19 @@
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/sortable-bar-chart
+
+
 function BarChart(data, {
     x = (d, i) => i, // given d in data, returns the (ordinal) x-value
     y = d => d, // given d in data, returns the (quantitative) y-value
     marginTop = 20, // the top margin, in pixels
-    marginRight = 0, // the right margin, in pixels
-    marginBottom = 30, // the bottom margin, in pixels
+    marginRight = 20, // the right margin, in pixels
+    marginBottom = 100, // the bottom margin, in pixels
     marginLeft = 40, // the left margin, in pixels
-    width = 640, // the outer width of the chart, in pixels
-    height = 400, // the outer height of the chart, in pixels
+    width = 500, // the outer width of the chart, in pixels
+    height = 500, // the outer height of the chart, in pixels
     xDomain, // an array of (ordinal) x-values
-    xRange = [marginLeft, width - marginRight], // [left, right]
+    xRange = [marginLeft, (width - marginRight) + 50], // [left, right]
     yType = d3.scaleLinear, // type of y-scale
     yDomain, // [ymin, ymax]
     yRange = [height - marginBottom, marginTop], // [bottom, top]
@@ -33,11 +35,11 @@ function BarChart(data, {
   
     // Omit any data not present in the x-domain.
     const I = d3.range(X.length).filter(i => xDomain.has(X[i]));
-  
+    
     // Construct scales, axes, and formats.
-    const xScale = d3.scaleBand(xDomain, xRange).padding(xPadding);
+     const xScale = d3.scaleBand().domain(X).range(xRange).padding(xPadding);
     const yScale = yType(yDomain, yRange);
-    const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
+    const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale).ticks(height / 40, yFormat);
     const format = yScale.tickFormat(100, yFormat);
   
@@ -72,7 +74,11 @@ function BarChart(data, {
   
     const xGroup = svg.append("g")
         .attr("transform", `translate(0,${height - marginBottom})`)
-        .call(xAxis);
+        .call(xAxis)
+        .selectAll("text")
+          .attr("transform", "translate(-10,10)rotate(-35)")
+          .style("text-anchor", "end")
+          .style("font-size", 10);
   
     // A helper method for updating the position of bars.
     function position(rect, x, y) {
@@ -159,5 +165,8 @@ function BarChart(data, {
             .call(g => g.select(".domain").remove())
             .call(g => g.selectAll(".tick").selectAll(".grid").data([,]).join(grid));
       }
+
+      
+        
     });
   }
