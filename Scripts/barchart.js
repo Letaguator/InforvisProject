@@ -80,6 +80,7 @@
     barchartDiv.style.width = 600;
     barchartDiv.style.height = 600;
 
+	interactionCount = interactionCount.sort((a, b) => b.count - a.count);
     barChart = BarChart(
         interactionCount,
         {
