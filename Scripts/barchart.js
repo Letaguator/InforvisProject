@@ -67,7 +67,7 @@
 				width: 500,
 				height: 500,
 				xPadding: 0.3,
-				color: "darkgreen"
+				color: "tomato"
 			})
 		
 			docVisitsBarchartDiv.append(docVisitsBarChart);
