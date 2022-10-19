@@ -61,3 +61,8 @@ div.tooltip {
    background: beige;			
    border-radius: 8px;			
 }
+div#timelineDiv {
+   height: 600px;
+   width: 100%;
+   overflow: scroll;
+  }

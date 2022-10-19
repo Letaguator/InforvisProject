@@ -6,7 +6,7 @@
     // set the dimensions and margins of the graph
     const margin = {top: 20, right: 30, bottom: 40, left: 90},
         width = 5000 - margin.left - margin.right,
-        height = 900 - margin.top - margin.bottom;
+        height = 500 - margin.top - margin.bottom;
     
     var div = d3.select("#timelineDiv").append("div")	
         .attr("class", "tooltip")				
@@ -38,7 +38,7 @@
     // .call(axis)
     // Add X axis
     const x = d3.scaleLinear()
-                .domain([0, 6000])
+                .domain([0, 5500])
                 .range([ 0, width]);
     svg.append("g")
         .attr("transform", `translate(0, ${height})`)
@@ -52,24 +52,24 @@
     svg.append("text")
         .attr("class", "x label")
         .attr("text-anchor", "middle")
-        .attr("transform", "translate(" + (margin.left + width / 2.0) + ", " + (height + (margin.bottom / 2.0)+10) + ")")
+        .attr("transform", "translate(" + (margin.left-40) + ", " + (height + (margin.bottom / 2.0)+20) + ")")
         // .attr("x", width)
         // .attr("y", height - 6)
-        .text("time (in seconds)");
-        
+        .text("time (in seconds)");  
     // Y axis
     const y = d3.scaleBand()
                 .range([ 0, height ])
                 .domain(ds1_UISegmented.map(d => d.ID))
                 .padding(.3);
     svg.append("g")
-        .call(d3.axisLeft(y))
-    svg.append("text")
-        .attr("class", "y label")
-        .attr("text-anchor", "middle")
-        .attr("y", 6)
-        .attr("transform", "translate(" + (margin.left - 120) + ", " + (height / 2.0) + ") rotate(-90)")
-        .text("Interactions");
+        .call(d3.axisLeft(y).tickValues([]))
+        .call(g => g.select(".domain").remove())
+    // svg.append("text")
+    //     .attr("class", "y label")
+    //     .attr("text-anchor", "middle")
+    //     .attr("y", 6)
+    //     .attr("transform", "translate(" + (margin.left - 120) + ", " + (height / 2.0) + ") rotate(-90)")
+    //     .text("Interactions");
         
     //Timeline rectangles
     svg.selectAll("myRect")
