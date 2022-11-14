@@ -1,4 +1,45 @@
-#appDiv {
+#appDiv
+{
     display: flex;
     flex-wrap: wrap;
+}
+
+#content
+{
+    background-color: #4ca3e0;
+}
+
+#content *
+{
+    margin: 8px;
+    background-color: white;
+}
+
+#header
+{
+    height: 52px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    margin: auto;
+}
+
+#userSelectorDiv
+{
+    margin-left: 6px;
+    background-color: #4ca3e0;
+    border-radius: 3px;
+}
+
+.userSelectionButton
+{
+    height: 52px;
+    width: 70px;
+    margin-top: 6px;
+    border: none;
+    background-color: #63beff;
+}
+.userSelectionButton:hover
+{
+    background-color: beige;
 }

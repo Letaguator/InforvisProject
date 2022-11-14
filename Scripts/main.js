@@ -37,10 +37,30 @@ async function readDataAsync(segmentationPath, interactionLog)
 	}).catch(function(error) { console.warn(error)} )
 }
 
-
-
-// console.log(files)
 const FILEPATHS = [["Arms_P1_20_4_6_Prov_Segments.csv","Arms_P1_InteractionsLogs.json"],["Arms_P2_20_4_6_Prov_Segments.csv","Arms_P2_InteractionsLogs.json"],["Arms_P3_20_4_6_Prov_Segments.csv","Arms_P3_InteractionsLogs.json"],["Arms_P4_20_4_6_Prov_Segments.csv","Arms_P4_InteractionsLogs.json"],["Arms_P5_20_4_6_Prov_Segments.csv","Arms_P5_InteractionsLogs.json"],["Arms_P6_20_4_6_Prov_Segments.csv","Arms_P6_InteractionsLogs.json"],["Arms_P7_20_4_6_Prov_Segments.csv","Arms_P7_InteractionsLogs.json"],["Arms_P8_20_4_6_Prov_Segments.csv","Arms_P8_InteractionsLogs.json"]];
 
-
-
+const userSelectorDiv = document.getElementById("userSelectorDiv");
+const buttons = [];
+let currentSelection = "P1";
+function populateUserSelector()
+{
+	for(let i = 0; i < 8; i++)
+	{
+		const button = document.createElement("button");
+		buttons.push(button);
+		button.className = "userSelectionButton";
+		button.innerHTML = "User " + (i + 1);
+		button.onclick = (evt) => {
+			let targetUser = "P" + (i + 1);
+			buttons.forEach(btn => {
+				btn.style = "";
+			});
+			button.style = "background-color: #4ca3e0";
+			FILEPATHS.map(vals => [vals[0].replace(currentSelection, targetUser), vals[1].replace(currentSelection, targetUser)]);
+			currentSelection = targetUser;
+			drawCharts();
+		};
+		userSelectorDiv.appendChild(button);
+	}
+}
+populateUserSelector();
