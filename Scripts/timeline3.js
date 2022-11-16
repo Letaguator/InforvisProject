@@ -17,7 +17,7 @@
     const svg = d3.select("#timelineDiv")
       .append("svg")
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("height", height+ 100 + margin.top + margin.bottom)
       .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
         
@@ -71,7 +71,20 @@
     //     .attr("y", 6)
     //     .attr("transform", "translate(" + (margin.left - 120) + ", " + (height / 2.0) + ") rotate(-90)")
     //     .text("Interactions");
-        
+    let zoom = d3.zoom()
+    .on('zoom', handleZoom);
+
+    function handleZoom(e) {
+    d3.select('svg g')
+        .attr('transform', e.transform);
+    }
+
+    function initZoom() {
+    d3.select('svg')
+        .call(zoom);
+    }
+    var colour = d3.scaleOrdinal(['#FF355E','#AAF0D1']);
+
     //Timeline rectangles
     svg.selectAll("myRect")
         .data(ds1_UISegmented)
@@ -83,7 +96,14 @@
         // .attr("height", height)
         .attr("stroke", "black")
         .attr("stroke-width", "1")
-        .attr("fill", "lime")
+        // .attr("fill", "lime")
+        // .style("background-color", function(d, i) {
+        //     return color(i);
+        //   })
+        .attr("fill", function(d,i) {
+            return colour(i);
+        })
+        
         .on('mouseover', function (d, i) {
             // console.log("id",i);
             // // alert(d.ID,d.start,d.end)
@@ -99,7 +119,7 @@
             //      .attr('opacity', '.6')
             div.transition()		
             .duration(200)		
-            .style("opacity", .6);		
+            .style("opacity", 1);		
             div	.html(
                 `
                 <ul>
@@ -126,4 +146,5 @@
                 d3.select(this).transition()
                 .duration('50')
                 .attr('opacity', '1')})
+        initZoom()
     })();
