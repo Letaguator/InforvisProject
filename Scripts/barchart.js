@@ -1,4 +1,4 @@
-;(async function() {
+async function drawCharts() {
     // Data preperation
 	let ds1_UISegmented = await readDataAsync(FILEPATHS[0][0], FILEPATHS[0][1]);
 	console.log("Arr: ", ds1_UISegmented );
@@ -96,4 +96,6 @@
     
     barchartDiv.append(barChart);
     
-})();
+}
+
+drawCharts();
