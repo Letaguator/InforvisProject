@@ -1,7 +1,46 @@
+body {
+    margin: 0;
+}
+
 #appDiv
 {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    height: 100vh;
+}
+
+#homePage{
+    flex-grow: 1;
+}
+
+#userPage{
+    flex-grow: 1;
+}
+
+#navbar
+{
+    height: 100vh;
+    border-radius: 4px;
+    width: 100px;
+    padding: 6px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: lightcoral;
+}
+
+#navbar button
+{
+    margin: 2px;
+    font-size: large;
+    border: 0px;
+    background-color: beige;
+}
+
+#navbar button:hover
+{
+    background-color: orange;
 }
 
 #content
