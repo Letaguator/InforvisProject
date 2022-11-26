@@ -3,6 +3,7 @@ async function drawCharts() {
 	let ds1_UISegmented = await readDataAsync(FILEPATHS[0][0], FILEPATHS[0][1]);
 	console.log("Arr: ", ds1_UISegmented );
 
+
 	// Creating set of interaction types 
 	const interactionTypes = new Set()
 	for(let i = 0; i < ds1_UISegmented.length; i++){
@@ -10,6 +11,9 @@ async function drawCharts() {
 			interactionTypes.add(ds1_UISegmented[i].interactions[j].InteractionType)
 		}
 	}
+
+	interactionTypes.delete("Think_aloud");
+	console.log("Interaction Types: ", interactionTypes)
 	let interactionCount = [];
 
 	for (const item of interactionTypes) {
@@ -19,8 +23,11 @@ async function drawCharts() {
 
 	for(let i = 0; i < ds1_UISegmented.length; i++){
 		for(let j = 0; j < ds1_UISegmented[i].interactions.length; j++){
-			let entry = interactionCount.find(item =>item.actionName === ds1_UISegmented[i].interactions[j].InteractionType);
-			++entry.count;
+			if(ds1_UISegmented[i].interactions[j].InteractionType != "Think_aloud"){
+				let entry = interactionCount.find(item =>item.actionName === ds1_UISegmented[i].interactions[j].InteractionType);
+				++entry.count;
+			}
+			
 		}
 	}
 	// Creating a set for documents opened

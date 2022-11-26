@@ -6,9 +6,9 @@ async function readDataAsync(segmentationPath, interactionLog)
 	const interactionLogComplete = "Data/Dataset_1/UserInteractions/" + interactionLog;
 
 	return d3.csv(segmentationPathComplete).then(function(csvData){
-		console.log(csvData)
+		// console.log(csvData)
 		return d3.json(interactionLogComplete).then(function(jsonData){
-			console.log(jsonData)
+			// console.log(jsonData)
 
 			// Compensate for errounous numbers for interactions
 			jsonData = jsonData.map(interaction => {
