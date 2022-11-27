@@ -66,3 +66,6 @@ div#timelineDiv {
    width: 100%;
    overflow: scroll;
   }
+div#timelineDivSegmentContent{
+   display: none;
+}
