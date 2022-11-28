@@ -1,6 +1,8 @@
+var participantId = 0;
 async function drawCharts() {
     // Data preperation
-	let ds1_UISegmented = await readDataAsync(FILEPATHS[0][0], FILEPATHS[0][1]);
+	console.log(participantId);
+	let ds1_UISegmented = await readDataAsync(FILEPATHS[participantId][0], FILEPATHS[participantId][1]);
 	console.log("Arr: ", ds1_UISegmented );
 
 
@@ -59,11 +61,17 @@ async function drawCharts() {
 		let obj = {documentName: sortedDocKeys[i], duration: sortedDocVals[i]/10};
 		top10Documents.push(obj);
 	}
+		var participantChartsDiv = document.getElementById("participantDivContent");
+        while (participantChartsDiv.lastElementChild) {
+            participantChartsDiv.removeChild(participantChartsDiv.lastElementChild);
+        }
+		participantChartsDiv.innerHTML = `
+		<h2>Participant Content</h2>
+	`;
+	participantChartsDiv.style.display = "block";
+	participantChartsDiv.style.width = 600;
+	participantChartsDiv.style.height = 600;
 	// Documents visited for the longest time
-		var docVisitsBarchartDiv = document.getElementById("docVisitsBarchartDiv");
-		docVisitsBarchartDiv.style.width = 600;
-		docVisitsBarchartDiv.style.height = 600;
-	
 		docVisitsBarChart = BarChart(
 			top10Documents,
 			{
@@ -74,19 +82,15 @@ async function drawCharts() {
 				width: 500,
 				height: 500,
 				xPadding: 0.3,
-				color: "tomato"
+				color: "tomato",
+				title: "Longest Visited Documents"
 			})
 		
-			docVisitsBarchartDiv.append(docVisitsBarChart);
+			participantChartsDiv.append(docVisitsBarChart);
 	
 
 	
     // Interaction Count Chart
-    
-    var barchartDiv = document.getElementById("barchartDiv");
-    barchartDiv.style.width = 600;
-    barchartDiv.style.height = 600;
-
 	interactionCount = interactionCount.sort((a, b) => b.count - a.count);
     barChart = BarChart(
         interactionCount,
@@ -98,10 +102,11 @@ async function drawCharts() {
             width: 500,
             height: 500,
             xPadding: 0.3,
-            color: "darkgreen"
+            color: "darkgreen",
+			title: "Interaction Count"
         })
     
-    barchartDiv.append(barChart);
+		participantChartsDiv.append(barChart);
     
 }
 

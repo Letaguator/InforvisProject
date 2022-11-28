@@ -1,6 +1,6 @@
-(async function() {
+async function drawTimeline() {
 	// Data preperation
-	let ds1_UISegmented = await readDataAsync(FILEPATHS[0][0], FILEPATHS[0][1]);
+	let ds1_UISegmented = await readDataAsync(FILEPATHS[participantId][0], FILEPATHS[participantId][1]);
 	console.log("Timeline arr data: ", ds1_UISegmented);
 	ds1_UISegmented.reverse();
 	// set the dimensions and margins of the graph
@@ -24,6 +24,7 @@
 		return Array.from(interactionTypes);
 	};
 	var timelinediv = document.getElementById("timelineDiv");
+	timelinediv.style = "border-top: 8px solid #4ca3e0;;";
 	timelinediv.innerHTML = 
 	`
 	<label for="actions">Highlight By Action:</label>
@@ -377,4 +378,5 @@
 	//         .duration('50')
 	//         .attr('opacity', '1')})
 	initZoom()
-})();
+}
+drawTimeline();

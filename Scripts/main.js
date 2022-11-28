@@ -3,6 +3,7 @@
 async function readDataAsync(segmentationPath, interactionLog)
 {
 	const segmentationPathComplete = "Data/Dataset_1/Segmentation/" + segmentationPath;
+	
 	const interactionLogComplete = "Data/Dataset_1/UserInteractions/" + interactionLog;
 
 	return d3.csv(segmentationPathComplete).then(function(csvData){
@@ -42,6 +43,7 @@ const FILEPATHS = [["Arms_P1_20_4_6_Prov_Segments.csv","Arms_P1_InteractionsLogs
 const userSelectorDiv = document.getElementById("userSelectorDiv");
 const buttons = [];
 let currentSelection = "P1";
+let current = 0;
 function populateUserSelector()
 {
 	for(let i = 0; i < 8; i++)
@@ -50,6 +52,9 @@ function populateUserSelector()
 		buttons.push(button);
 		button.className = "userSelectionButton";
 		button.innerHTML = "User " + (i + 1);
+		if(i == current){
+			button.style = "background-color: #4ca3e0";
+		}
 		button.onclick = (evt) => {
 			let targetUser = "P" + (i + 1);
 			buttons.forEach(btn => {
@@ -58,7 +63,16 @@ function populateUserSelector()
 			button.style = "background-color: #4ca3e0";
 			FILEPATHS.map(vals => [vals[0].replace(currentSelection, targetUser), vals[1].replace(currentSelection, targetUser)]);
 			currentSelection = targetUser;
+			participantId = i;
+			current = i;
 			drawCharts();
+			//remove the old segmentation charts div before displaying new one
+			var segmentChartsDiv = document.getElementById("timelineDivSegmentContent");
+			while (segmentChartsDiv.lastElementChild) {
+				segmentChartsDiv.removeChild(segmentChartsDiv.lastElementChild);
+			}
+			
+			drawTimeline();
 		};
 		userSelectorDiv.appendChild(button);
 	}
