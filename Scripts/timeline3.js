@@ -4,6 +4,30 @@ async function drawTimeline() {
 	console.log("Timeline arr data: ", ds1_UISegmented);
 	ds1_UISegmented.reverse();
 	// set the dimensions and margins of the graph
+	const getAllDocs = ()=>{
+		const documentOpens = new Set()
+		for(let i = 0; i < ds1_UISegmented.length; i++){
+			for(let j = 0; j < ds1_UISegmented[i].interactions.length; j++){
+				if(ds1_UISegmented[i].interactions[j].InteractionType === "Doc_open"){
+					documentOpens.add(ds1_UISegmented[i].interactions[j]);
+				}
+			}
+		}
+
+		let documentOpen = new Map();
+		for (const item of documentOpens) {
+			if(documentOpen.has(item.Text)){
+				let duration = documentOpen.get(item.Text);
+				documentOpen.set(item.Text, item.duration + duration);
+			}else{
+				documentOpen.set(item.Text,item.duration);
+			}
+		}
+
+		const sortedDocuments = new Map([...documentOpen.entries()].sort((a, b) => b[1] - a[1]));
+		const sortedDocKeys = Array.from(sortedDocuments.keys());
+		return sortedDocKeys;
+	}
 	const margin = {
 			top: 20,
 			right: 30,
@@ -27,6 +51,7 @@ async function drawTimeline() {
 	timelinediv.style = "border-top: 8px solid #4ca3e0;;";
 	timelinediv.innerHTML = 
 	`
+	<h2>Segementations Timeline</h2>
 	<label for="actions">Highlight By Action:</label>
 
 	<select name="actions" id="actions">
@@ -42,7 +67,34 @@ async function drawTimeline() {
 	  <option value="Create Note">Create Note</option>
 	  <option value="Add note">Add note</option>
 	</select>
+	<label for="docs">Highlight By Document:</label>
+
+	<select name="docs" id="docs">
+	  <option disabled selected value> -- select an option -- </option>
+	</select>
 	`;
+	var allDocs = getAllDocs();
+	var docsSelect = document.getElementById('docs');
+	for (var i = 0; i < allDocs.length; i++) {
+		var option = document.createElement('option');
+		// option.value(allDocs[i]);
+		option.setAttribute("value", allDocs[i]);
+		option.text = allDocs[i];
+		docsSelect.appendChild(option);
+	}
+	docsSelect.addEventListener("change", function() {
+		d3.selectAll(timesegments).style("fill", "#AAF0D1")
+		// var val = document.getElementById("actions").value;
+		// console.log("----------------");
+		// console.log(docsSelect.value);
+		var docsSelectSelected = docsSelect.value;
+		d3.selectAll(timesegments).filter(function(d, i) {
+			var currDocs = getDocs(d);
+			return currDocs.includes(docsSelectSelected);
+		  }).style('fill', 'yellow');
+	  });
+	
+	// docsSelect.options[allDocs.length] = new Option(`${allDocs}`, `${allDocs}`);
 	// var actionsList = getActions();
 	var actionsOptions = document.getElementById('actions');
 	actionsOptions.addEventListener("change", function() {
