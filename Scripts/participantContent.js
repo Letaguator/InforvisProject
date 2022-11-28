@@ -107,6 +107,26 @@ async function drawCharts() {
         })
     
 		participantChartsDiv.append(barChart);
+
+		
+	// Word Cloud for Text Participant Searched For 
+
+	let searchedWordsArr = []
+	for(let i = 0; i < ds1_UISegmented.length; i++){
+		for(let j = 0; j < ds1_UISegmented[i].interactions.length; j++){
+			if(ds1_UISegmented[i].interactions[j].InteractionType === "Search"){
+				searchedWordsArr.push(ds1_UISegmented[i].interactions[j].Text)
+			}
+		}
+	}
+
+	console.log("CWC: ", searchedWordsArr)
+
+	wordCloud = WordCloud(searchedWordsArr, {
+		width: 400,
+		height: 500
+	  })
+		participantChartsDiv.append(wordCloud)
     
 }
 
