@@ -13,12 +13,74 @@
 		width = 5000 - margin.left - margin.right,
 		// height = 500 - margin.top - margin.bottom;
 		height = 100;
+	var actionOptionsSelected;
+	const getActions = (i)=>{
+		const interactionTypes = new Set()
+        for (let j = 0; j < i.interactions.length; j++){
+            interactionTypes.add(i.interactions[j].InteractionType)
+        }
+        interactionTypes.delete("Think_aloud");
+	    console.log("Interaction Types @ time segment: ", Array.from(interactionTypes));
+		return Array.from(interactionTypes);
+	};
+	var timelinediv = document.getElementById("timelineDiv");
+	timelinediv.innerHTML = 
+	`
+	<label for="actions">Highlight By Action:</label>
+
+	<select name="actions" id="actions">
+	  <option disabled selected value> -- select an option -- </option>
+	  <option value="Draging">Draging</option>
+	  <option value="Reading">Reading</option>
+	  <option value="Mouse_hover">Mouse_hover</option>
+	  <option value="Doc_open">Doc_open</option>
+	  <option value="Search">Search</option>
+	  <option value="Highlight">Highlight</option>
+	  <option value="Connection">Connection</option>
+	  <option value="Topic_change">Topic_change</option>
+	  <option value="Create Note">Create Note</option>
+	  <option value="Add note">Add note</option>
+	</select>
+	`;
+	// var actionsList = getActions();
+	var actionsOptions = document.getElementById('actions');
+	actionsOptions.addEventListener("change", function() {
+		d3.selectAll(timesegments).style("fill", "#AAF0D1")
+		// var val = document.getElementById("actions").value;
+		// console.log("----------------");
+		// console.log(actionsOptions.value);
+		actionOptionsSelected = actionsOptions.value;
+		d3.selectAll(timesegments).filter(function(d, i) {
+			// console.log("Documents of selected segment: @timeline", docs);
+			// console.log("data inside the filter @timeline", d);
+			var currActions = getActions(d);
+			// console.log("docs in filter @timeline", currDocs);
+			return currActions.includes(actionOptionsSelected);
+			// const intersection = docs.filter(element => currDocs.includes(element));
+			// console.log("common docs @timeline",i,":",intersection);
+			// if(intersection.length>0){
+			// 	console.log("to be highlighted @ timeline",i);
+			// 	return true;
+			// }
+			// return i % 2 === 0;
+		  }).style('fill', 'green');
+	  });
+	// var prevElem, prevColour;
+	// actionsOptions.onchange = (e)=>{
+	// 	console.log("----------------");
+	// 	console.log(e);
+	// 	// alert(e.target);
+	// }
+	// var handleActionsOption = ()=>{
+	// 	var val = document.getElementById("actions").value;
+	// 	console.log("----------------");
+	// 	console.log(val);
+	// 	// alert(e.target);
+	// }
 
 	var div = d3.select("#timelineDiv").append("div")
-		.attr("class", "tooltip")
-		.style("opacity", 0);
-
-	var prevElem, prevColour;
+	.attr("class", "tooltip")
+	.style("opacity", 0);
 
     const handleSegmentClick = (i) => {
         const interactionTypes = new Set()
@@ -26,7 +88,7 @@
             interactionTypes.add(i.interactions[j].InteractionType)
         }
         interactionTypes.delete("Think_aloud");
-	    console.log("Interaction Types @ time segment: ", interactionTypes);
+	    // console.log("Interaction Types @ time segment: ", Array.from(interactionTypes));
         let interactionCount = [];
 
         for (const item of interactionTypes) {
@@ -108,6 +170,9 @@
 			})
 		
         segmentChartsDiv.append(docVisitsBarChart);
+
+		// let data = i;
+		return sortedDocKeys;
         // let ele = document.getElementById('timelineDivSegmentContent');
         
         // ele.style.background = "red";
@@ -121,6 +186,27 @@
         
         // `
     }
+	const getDocs = (i) => {
+		const documentOpens = new Set()
+        for(let j = 0; j < i.interactions.length; j++){
+            if(i.interactions[j].InteractionType === "Doc_open"){
+                documentOpens.add(i.interactions[j]);
+            }
+        }
+        let documentOpen = new Map();
+        for (const item of documentOpens) {
+            if(documentOpen.has(item.Text)){
+                let duration = documentOpen.get(item.Text);
+                documentOpen.set(item.Text, item.duration + duration);
+            }else{
+                documentOpen.set(item.Text,item.duration);
+            }
+        }
+        const sortedDocuments = new Map([...documentOpen.entries()].sort((a, b) => b[1] - a[1]));
+        const sortedDocKeys = Array.from(sortedDocuments.keys());
+
+		return sortedDocKeys;
+	}
 	// append the svg object to the body of the page
 	const svg = d3.select("#timelineDiv")
         .attr("viewBox", "100,100,150,420")
@@ -196,7 +282,7 @@
 	var colour = d3.scaleOrdinal(['#AAF0D1']);
 
 	//Timeline rectangles
-	svg.selectAll("myRect")
+	var timesegments = svg.selectAll("myRect")
 		.data(ds1_UISegmented)
 		.join("rect")
 		.attr("x", d => x(d['start']))
@@ -256,15 +342,36 @@
 			// .attr('opacity', '1')
 		})
 		.on('click', function(e, i) {
-            if (prevElem) {
-                prevElem.style("fill", prevColour);
-            };
-            prevElem = d3.select(this);
-            prevColour = d3.select(this).style("fill");
+			d3.selectAll(timesegments).style("fill", "#AAF0D1")
+			// d3.select(this).style("fill", "red")
+            // if (prevElem) {
+            //     prevElem.style("fill", prevColour);
+            // };
+            // prevElem = d3.select(this);
+            // prevColour = d3.select(this).style("fill");
             d3.select(this)
                 .style('fill', 'orange');
-            handleSegmentClick(i);
+            var docs = handleSegmentClick(i);
+			d3.selectAll(timesegments)
+			.filter(function(d, i) {
+				// console.log("Documents of selected segment: @timeline", docs);
+				// console.log("data inside the filter @timeline", d);
+				var currDocs = getDocs(d);
+				// console.log("docs in filter @timeline", currDocs);
+				const intersection = docs.filter(element => currDocs.includes(element));
+				// console.log("common docs @timeline",i,":",intersection);
+				if(intersection.length>0){
+					console.log("to be highlighted @ timeline",i);
+					return true;
+				}
+				// return i % 2 === 0;
+		  	}).style('fill', 'red');
+			d3.select(this)
+			  .style('fill', 'orange');
 		})
+		// if(actionOptionsSelected !== ""){
+		// 	d3.selectAll(timesegments).style('fill', 'cyan');
+		// }
 	// .on('click', function (d, i) {
 	//         d3.select(this).transition()
 	//         .duration('50')
