@@ -48,7 +48,6 @@ async function drawTimeline() {
 		return Array.from(interactionTypes);
 	};
 	var timelinediv = document.getElementById("timelineDiv");
-	timelinediv.style = "border-top: 8px solid #4ca3e0;;";
 	timelinediv.innerHTML = 
 	`
 	<h2>Segementations Timeline</h2>
@@ -222,9 +221,16 @@ async function drawTimeline() {
 				color: "tomato"
 			})
 		
-        segmentChartsDiv.append(docVisitsBarChart);
-
-		// let data = i;
+			segmentChartsDiv.append(docVisitsBarChart);
+		
+			segmentChartsDiv.append(docVisitsBarChart);
+		
+			var rawInteractionLog = document.getElementById("rawInteractionLog");
+			rawInteractionLog.style.paddingBottom = "5px";
+			rawInteractionLog.innerHTML = 
+			`
+			<h2>Interactions during this Segment</h2>`;
+			var rawInteractionLog = tabulate(i.interactions,[ "time","InteractionType", "Text" ]);
 		return sortedDocKeys;
         // let ele = document.getElementById('timelineDivSegmentContent');
         
@@ -262,9 +268,10 @@ async function drawTimeline() {
 	}
 	// append the svg object to the body of the page
 	const svg = d3.select("#timelineDiv")
-        .attr("viewBox", "100,100,150,420")
+        .attr("viewBox", "0,0,10,10")
 		.append("svg")
-		.attr("width", width + margin.left + margin.right)
+		// .attr("width", width + margin.left + margin.right)
+		.attr("width", "100%")
 		.attr("height", height + 100 + margin.top + margin.bottom)
 		.append("g")
 		.attr("transform", `translate(${margin.left}, ${margin.top})`);
@@ -320,7 +327,9 @@ async function drawTimeline() {
 	//     .attr("transform", "translate(" + (margin.left - 120) + ", " + (height / 2.0) + ") rotate(-90)")
 	//     .text("Interactions");
 	let zoom = d3.zoom()
-		.on('zoom', handleZoom);
+		.on('zoom', handleZoom)
+		.scaleExtent([1, 1.5])
+		.translateExtent([[-90, 30], [width, height]]);
 
 	function handleZoom(e) {
 		d3.select('svg g')
@@ -432,3 +441,49 @@ async function drawTimeline() {
 	initZoom()
 }
 drawTimeline();
+
+function tabulate(data, columns) {
+    var table = d3.select("#rawInteractionLog").append("table").style("border-collapse", "collapse")
+	.style("border", "2px black solid");
+        thead = table.append("thead"),
+        tbody = table.append("tbody");
+	// console.log(data);
+    // append the header row
+    thead.append("tr")
+        .selectAll("th")
+        .data(columns)
+        .enter()
+        .append("th")
+            .text(function(column) { return column; }).style("border", "1px black solid")
+			.style("padding", "5px")
+			.style("background-color", "lightgray")
+			.style("font-weight", "bold")
+			.style("text-transform", "uppercase");
+
+    // create a row for each object in the data
+    var rows = tbody.selectAll("tr")
+        .data(data)
+        .enter()
+        .append("tr");
+
+    // create a cell in each row for each column
+    var cells = rows.selectAll("td")
+        .data(function(row) {
+			// console.log(row["Text"]);
+            return columns.map(function(column) {
+                return {column: column, value: row[column]};
+            });
+        })
+        .enter()
+        .append("td")
+            .text(function(d) { return d.value; }).style("border", "1px black solid")
+			.style("padding", "5px")
+			.on("mouseover", function(){
+			d3.select(this).style("background-color", "powderblue");
+		  })
+			.on("mouseout", function(){
+			d3.select(this).style("background-color", "white");
+		  });
+
+    return table;
+}

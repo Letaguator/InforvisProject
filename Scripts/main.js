@@ -71,6 +71,11 @@ function populateUserSelector()
 			while (segmentChartsDiv.lastElementChild) {
 				segmentChartsDiv.removeChild(segmentChartsDiv.lastElementChild);
 			}
+			var rawInteractionLog = document.getElementById("rawInteractionLog");
+			while (rawInteractionLog.lastElementChild) {
+				rawInteractionLog.removeChild(rawInteractionLog.lastElementChild);
+			}
+			rawInteractionLog.style.paddingBottom = "";
 			
 			drawTimeline();
 		};
