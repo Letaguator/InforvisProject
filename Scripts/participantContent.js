@@ -79,7 +79,7 @@ async function drawCharts() {
 				width: 500,
 				height: 500,
 				xPadding: 0.3,
-				color: "tomato",
+				color: "darkblue",
 				title: "Longest Visited Documents"
 			})
 		
@@ -99,7 +99,7 @@ async function drawCharts() {
             width: 500,
             height: 500,
             xPadding: 0.3,
-            color: "darkgreen",
+            color: "darkblue",
 			title: "Interaction Count"
         })
     

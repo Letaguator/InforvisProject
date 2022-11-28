@@ -50,11 +50,21 @@ body {
     background-color: orange;
 }
 
+.dataEntry
+{
+    border-radius: 3px;
+    border: 3px solid rgb(64, 65, 107);
+    padding: 4px;
+    margin: 4px;
+}
+
 #content
 {
-    background-color: #c6c6cf;
-    height: 100vh;
-    overflow: scroll;
+    background-image: linear-gradient(#b0b0bb, #dcdce6);
+    /* background-color: #c6c6cf; */
+    height: 95vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 svg {
@@ -64,7 +74,7 @@ svg {
 
 #header
 {
-    height: 52px;
+    height: 5vh;
     display: flex;
     flex-direction: row;
     text-align: center;
@@ -80,7 +90,7 @@ svg {
 
 .userSelectionButton
 {
-    height: 46px;
+    height: 4vh;
     width: 70px;
     margin-top: 6px;
     border: none;
