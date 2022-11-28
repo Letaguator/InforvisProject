@@ -293,8 +293,9 @@ async function drawTimeline() {
         .attr("viewBox", "0,0,10,10")
 		.append("svg")
 		// .attr("width", width + margin.left + margin.right)
-		.attr("width", "100%")
-		.attr("height", height + 100 + margin.top + margin.bottom)
+		.attr("width", "98.3%")
+		// .attr("height", height + 100 + margin.top + margin.bottom)
+		.attr("height","70%")
 		.append("g")
 		.attr("transform", `translate(${margin.left}, ${margin.top})`);
 
