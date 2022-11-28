@@ -268,9 +268,10 @@ async function drawTimeline() {
 	}
 	// append the svg object to the body of the page
 	const svg = d3.select("#timelineDiv")
-        .attr("viewBox", "100,100,150,420")
+        .attr("viewBox", "0,0,10,10")
 		.append("svg")
-		.attr("width", width + margin.left + margin.right)
+		// .attr("width", width + margin.left + margin.right)
+		.attr("width", "100%")
 		.attr("height", height + 100 + margin.top + margin.bottom)
 		.append("g")
 		.attr("transform", `translate(${margin.left}, ${margin.top})`);
@@ -326,7 +327,9 @@ async function drawTimeline() {
 	//     .attr("transform", "translate(" + (margin.left - 120) + ", " + (height / 2.0) + ") rotate(-90)")
 	//     .text("Interactions");
 	let zoom = d3.zoom()
-		.on('zoom', handleZoom);
+		.on('zoom', handleZoom)
+		.scaleExtent([1, 1.5])
+		.translateExtent([[-90, 30], [width, height]]);
 
 	function handleZoom(e) {
 		d3.select('svg g')
