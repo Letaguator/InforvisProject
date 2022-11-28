@@ -246,9 +246,6 @@ async function drawTimeline() {
                 color: "rgb(53, 53, 216)"
             })
 
-		if(top10Documents.length > 0){
-			segmentChartsDiv.append(docVisitsBarChart);
-		}
 
         segmentChartsDiv.append(barChart);   
 
@@ -293,9 +290,9 @@ async function drawTimeline() {
 				color: "rgb(53, 53, 216)"
 			})
 		
-			segmentChartsDiv.append(docVisitsBarChart);
-		
-			segmentChartsDiv.append(docVisitsBarChart);
+			if(top10Documents.length > 0){
+				segmentChartsDiv.append(docVisitsBarChart);
+			}
 		
 			var rawInteractionLog = document.getElementById("rawInteractionLog");
 			rawInteractionLog.style.paddingBottom = "5px";
