@@ -197,7 +197,7 @@ async function drawTimeline() {
                 width: 500,
                 height: 500,
                 xPadding: 0.3,
-                color: "cyan"
+                color: "rgb(53, 53, 216)"
             })
 
         segmentChartsDiv.append(barChart);   
@@ -240,7 +240,7 @@ async function drawTimeline() {
 				width: 500,
 				height: 500,
 				xPadding: 0.3,
-				color: "tomato"
+				color: "rgb(53, 53, 216)"
 			})
 		
 			segmentChartsDiv.append(docVisitsBarChart);
