@@ -16,11 +16,17 @@ body {
     height: 100vh;
 }
 
-#homePage{
+#homePage {
     flex-grow: 1;
 }
 
-#userPage{
+#homePage div {
+    border-radius: 6px;
+    background-color: white;
+    margin: 0px 48px 0px 48px;
+}
+
+#userPage {
     flex-grow: 1;
 }
 
