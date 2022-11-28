@@ -50,9 +50,17 @@ body {
     background-color: orange;
 }
 
+.dataEntry
+{
+    border: 2px solid rgb(45, 47, 93);
+    padding: 4px;
+    margin: 4px;
+}
+
 #content
 {
-    background-color: #c6c6cf;
+    background-image: linear-gradient(#b0b0bb, #dcdce6);
+    /* background-color: #c6c6cf; */
     height: 100vh;
     overflow: scroll;
 }
