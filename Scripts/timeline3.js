@@ -75,7 +75,15 @@ async function drawTimeline() {
 	<button id="panRight">Pan right</button>
 	<button id="zoomIn"">Zoom in</button>
 	<button id="zoomOut">Zoom out</button>
+	<div id="legend" style="color:white">
+	<span style="background-color:#FFC20A; width=5px; margin-right:5px;">No Filter </span>
+	<span style="background-color:darkblue; width=5px; margin-right:5px;">Selected </span>
+	<span style="background-color:green; width=5px; margin-right:5px;">Similar to selected </span>
+	<span style="background-color:#40B0A6; width=5px; margin-right:5px;">Contains action </span>
+	<span style="background-color:brown; width=5px; margin-right:5px;">Contains document </span>
+	</div>
 	`;
+	
 	document.getElementById('panLeft').addEventListener("click", function() {
 		d3.select('svg')
 			.transition()
@@ -106,7 +114,7 @@ async function drawTimeline() {
 		docsSelect.appendChild(option);
 	}
 	docsSelect.addEventListener("change", function() {
-		d3.selectAll(timesegments).style("fill", "#AAF0D1")
+		d3.selectAll(timesegments).style("fill", "#FFC20A")
 		// var val = document.getElementById("actions").value;
 		// console.log("----------------");
 		// console.log(docsSelect.value);
@@ -114,14 +122,14 @@ async function drawTimeline() {
 		d3.selectAll(timesegments).filter(function(d, i) {
 			var currDocs = getDocs(d);
 			return currDocs.includes(docsSelectSelected);
-		  }).style('fill', 'yellow');
+		  }).style('fill', 'brown');
 	  });
 	
 	// docsSelect.options[allDocs.length] = new Option(`${allDocs}`, `${allDocs}`);
 	// var actionsList = getActions();
 	var actionsOptions = document.getElementById('actions');
 	actionsOptions.addEventListener("change", function() {
-		d3.selectAll(timesegments).style("fill", "#AAF0D1")
+		d3.selectAll(timesegments).style("fill", "#FFC20A")
 		// var val = document.getElementById("actions").value;
 		// console.log("----------------");
 		// console.log(actionsOptions.value);
@@ -139,7 +147,7 @@ async function drawTimeline() {
 			// 	return true;
 			// }
 			// return i % 2 === 0;
-		  }).style('fill', 'green');
+		  }).style('fill', '#40B0A6');
 	  });
 	// var prevElem, prevColour;
 	// actionsOptions.onchange = (e)=>{
@@ -324,7 +332,7 @@ async function drawTimeline() {
 		return sortedDocKeys;
         // let ele = document.getElementById('timelineDivSegmentContent');
         
-        // ele.style.background = "red";
+        // ele.style.background = "green";
         // ele.innerHTML = `
         // <ul>
         //     <li>Interaction ID: ${i.ID}</li>
@@ -363,7 +371,7 @@ async function drawTimeline() {
 		// .attr("width", width + margin.left + margin.right)
 		.attr("width", "98.3%")
 		// .attr("height", height + 100 + margin.top + margin.bottom)
-		.attr("height","70%")
+		.attr("height","60%")
 		.append("g")
 		.attr("transform", `translate(${margin.left}, ${margin.top})`);
 
@@ -431,8 +439,8 @@ async function drawTimeline() {
 		d3.select('svg')
 			.call(zoom);
 	}
-	// var colour = d3.scaleOrdinal(['#FF355E','#AAF0D1']);
-	var colour = d3.scaleOrdinal(['#AAF0D1']);
+	// var colour = d3.scaleOrdinal(['#FF355E','#FFC20A']);
+	var colour = d3.scaleOrdinal(['#FFC20A']);
 
 	//Timeline rectangles
 	var timesegments = svg.selectAll("myRect")
@@ -443,7 +451,7 @@ async function drawTimeline() {
 		.attr("width", d => x(d['length (sec)']))
 		.attr("height", "100")
 		// .attr("height", height)
-		.attr("stroke", "black")
+		.attr("stroke", "white")
 		.attr("stroke-width", "1")
 		// .attr("fill", "lime")
 		// .style("background-color", function(d, i) {
@@ -498,15 +506,15 @@ async function drawTimeline() {
 			console.log("Printing: ", i)
 			
 
-			d3.selectAll(timesegments).style("fill", "#AAF0D1")
-			// d3.select(this).style("fill", "red")
+			d3.selectAll(timesegments).style("fill", "#FFC20A")
+			// d3.select(this).style("fill", "green")
             // if (prevElem) {
             //     prevElem.style("fill", prevColour);
             // };
             // prevElem = d3.select(this);
             // prevColour = d3.select(this).style("fill");
             d3.select(this)
-                .style('fill', 'orange');
+                .style('fill', 'darkblue');
             var docs = handleSegmentClick(i);
 			d3.selectAll(timesegments)
 			.filter(function(d, i) {
@@ -521,9 +529,9 @@ async function drawTimeline() {
 					return true;
 				}
 				// return i % 2 === 0;
-		  	}).style('fill', 'red');
+		  	}).style('fill', 'green');
 			d3.select(this)
-			  .style('fill', 'orange');
+			  .style('fill', 'darkblue');
 		})
 		// if(actionOptionsSelected !== ""){
 		// 	d3.selectAll(timesegments).style('fill', 'cyan');
@@ -538,7 +546,7 @@ drawTimeline();
 
 function tabulate(data, columns) {
     var table = d3.select("#rawInteractionLog").append("table").style("border-collapse", "collapse")
-	.style("border", "2px black solid");
+	.style("border", "2px white solid");
         thead = table.append("thead"),
         tbody = table.append("tbody");
 	// console.log(data);
@@ -548,7 +556,7 @@ function tabulate(data, columns) {
         .data(columns)
         .enter()
         .append("th")
-            .text(function(column) { return column; }).style("border", "1px black solid")
+            .text(function(column) { return column; }).style("border", "1px white solid")
 			.style("padding", "5px")
 			.style("background-color", "lightgray")
 			.style("font-weight", "bold")
@@ -570,10 +578,10 @@ function tabulate(data, columns) {
         })
         .enter()
         .append("td")
-            .text(function(d) { return d.value; }).style("border", "1px black solid")
+            .text(function(d) { return d.value; }).style("border", "1px white solid")
 			.style("padding", "5px")
 			.on("mouseover", function(){
-			d3.select(this).style("background-color", "powderblue");
+			d3.select(this).style("background-color", "powdergreen");
 		  })
 			.on("mouseout", function(){
 			d3.select(this).style("background-color", "white");
