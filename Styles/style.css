@@ -6,6 +6,7 @@ Chart background: #c6c6cf
 body {
     margin: 0;
     background-color: #9695a3;
+    overflow: hidden;
 }
 
 #appDiv
@@ -52,6 +53,8 @@ body {
 #content
 {
     background-color: #c6c6cf;
+    height: 100vh;
+    overflow: scroll;
 }
 
 svg {
@@ -77,7 +80,7 @@ svg {
 
 .userSelectionButton
 {
-    height: 52px;
+    height: 46px;
     width: 70px;
     margin-top: 6px;
     border: none;
