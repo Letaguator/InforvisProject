@@ -100,3 +100,24 @@ svg {
 {
     background-color: beige;
 }
+
+
+.segTextDiv 
+{
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 4px;
+    margin:2px;
+    padding:2px;
+
+}
+
+
+.segTextDiv *
+{
+    font-size: large;
+    margin:4px;
+}

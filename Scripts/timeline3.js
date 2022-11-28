@@ -209,6 +209,10 @@ async function drawTimeline() {
 		}
 		let wordsSearchedArr = new Array(...wordsSearchedSet).join(', ')
 
+		if(wordsSearchedArr.length == 0){
+			wordsSearchedArr = "None"
+		}
+
 		//getting documents opened 
 		const docOpenedSet = new Set()
 		for(let j = 0; j < i.interactions.length; j++){
@@ -218,18 +222,35 @@ async function drawTimeline() {
 		}
 		let docOpenedArr = new Array(...docOpenedSet).join(', ')
 
+
+		if(docOpenedArr.length == 0){
+			docOpenedArr = "None"
+		}
 		//getting highlighted documents
+
+		const highlightedSet = new Set()
+		for(let j = 0; j < i.interactions.length; j++){
+			if(i.interactions[j].InteractionType === "Highlight"){
+				highlightedSet.add(i.interactions[j].Text)
+			}
+		}
+		let highlightedArr = new Array(...highlightedSet).join(', ')
+
+		if(highlightedArr.length == 0){
+			highlightedArr = "None"
+		}
 
 
 
 
 		segmentChartsDiv.innerHTML = 
 			`
-			<div>
+			<h2>Selected Segement Content ${i.ID}</h2>
+			<div class = "segTextDiv">
 			<p>Total Time Spent: ${result}</p>
 			<p>Words Searched:  ${wordsSearchedArr}</p>
 			<p>Documents Read: ${docOpenedArr} </p>
-			<p>Words Highlighted: ${docOpenedArr} </p>
+			<p>Words Highlighted: ${highlightedArr} </p>
 			</div>
 			`
         interactionCount = interactionCount.sort((a, b) => b.count - a.count);
