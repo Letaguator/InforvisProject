@@ -220,7 +220,7 @@ async function drawTimeline() {
 
 		//getting highlighted documents
 
-		
+
 
 
 		segmentChartsDiv.innerHTML = 
@@ -245,6 +245,10 @@ async function drawTimeline() {
                 xPadding: 0.3,
                 color: "rgb(53, 53, 216)"
             })
+
+		if(top10Documents.length > 0){
+			segmentChartsDiv.append(docVisitsBarChart);
+		}
 
         segmentChartsDiv.append(barChart);   
 
