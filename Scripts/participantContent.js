@@ -123,6 +123,9 @@ async function drawCharts() {
 		height: 500
 	});
 	participantChartsDiv.append(wordCloud)
+
+
+	
 }
 
 drawCharts();

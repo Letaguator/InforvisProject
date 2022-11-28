@@ -178,6 +178,7 @@ async function drawTimeline() {
                 ++entry.count;
             }
         }
+		console.log("Printing I: ", i)
         var segmentChartsDiv = document.getElementById("timelineDivSegmentContent");
         while (segmentChartsDiv.lastElementChild) {
             segmentChartsDiv.removeChild(segmentChartsDiv.lastElementChild);
@@ -186,6 +187,51 @@ async function drawTimeline() {
         segmentChartsDiv.style.width = 600;
         segmentChartsDiv.style.height = 600;
 
+		//Getting Text Summary 
+
+		//getting total time spent 
+		segmentLengthSec = i["length (sec)"]
+		console.log("SLength: ",segmentLengthSec)
+		const minutes = Math.floor(segmentLengthSec / 60);
+		const seconds = segmentLengthSec % 60;
+		function padTo2Digits(num) {
+			return num.toString().padStart(2, '0');
+		}
+		const result = `${padTo2Digits(minutes)}:${padTo2Digits(Math.round(seconds * 10) / 10)}`;
+
+
+		//getting words searched
+		const wordsSearchedSet = new Set()
+		for(let j = 0; j < i.interactions.length; j++){
+			if(i.interactions[j].InteractionType === "Search"){
+				wordsSearchedSet.add(i.interactions[j].Text)
+			}
+		}
+		let wordsSearchedArr = new Array(...wordsSearchedSet).join(', ')
+
+		//getting documents opened 
+		const docOpenedSet = new Set()
+		for(let j = 0; j < i.interactions.length; j++){
+			if(i.interactions[j].InteractionType === "Doc_open"){
+				docOpenedSet.add(i.interactions[j].Text)
+			}
+		}
+		let docOpenedArr = new Array(...docOpenedSet).join(', ')
+
+		//getting highlighted documents
+
+		
+
+
+		segmentChartsDiv.innerHTML = 
+			`
+			<div>
+			<p>Total Time Spent: ${result}</p>
+			<p>Words Searched:  ${wordsSearchedArr}</p>
+			<p>Documents Read: ${docOpenedArr} </p>
+			<p>Words Highlighted: ${docOpenedArr} </p>
+			</div>
+			`
         interactionCount = interactionCount.sort((a, b) => b.count - a.count);
         barChart = BarChart(
             interactionCount,
@@ -426,6 +472,9 @@ async function drawTimeline() {
 			// .attr('opacity', '1')
 		})
 		.on('click', function(e, i) {
+			console.log("Printing: ", i)
+			
+
 			d3.selectAll(timesegments).style("fill", "#AAF0D1")
 			// d3.select(this).style("fill", "red")
             // if (prevElem) {
