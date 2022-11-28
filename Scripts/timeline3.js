@@ -221,9 +221,16 @@ async function drawTimeline() {
 				color: "tomato"
 			})
 		
-        segmentChartsDiv.append(docVisitsBarChart);
-
-		// let data = i;
+			segmentChartsDiv.append(docVisitsBarChart);
+		
+			segmentChartsDiv.append(docVisitsBarChart);
+		
+			var rawInteractionLog = document.getElementById("rawInteractionLog");
+			rawInteractionLog.style.paddingBottom = "5px";
+			rawInteractionLog.innerHTML = 
+			`
+			<h2>Interactions during this Segment</h2>`;
+			var rawInteractionLog = tabulate(i.interactions,[ "time","InteractionType", "Text" ]);
 		return sortedDocKeys;
         // let ele = document.getElementById('timelineDivSegmentContent');
         
@@ -431,3 +438,49 @@ async function drawTimeline() {
 	initZoom()
 }
 drawTimeline();
+
+function tabulate(data, columns) {
+    var table = d3.select("#rawInteractionLog").append("table").style("border-collapse", "collapse")
+	.style("border", "2px black solid");
+        thead = table.append("thead"),
+        tbody = table.append("tbody");
+	// console.log(data);
+    // append the header row
+    thead.append("tr")
+        .selectAll("th")
+        .data(columns)
+        .enter()
+        .append("th")
+            .text(function(column) { return column; }).style("border", "1px black solid")
+			.style("padding", "5px")
+			.style("background-color", "lightgray")
+			.style("font-weight", "bold")
+			.style("text-transform", "uppercase");
+
+    // create a row for each object in the data
+    var rows = tbody.selectAll("tr")
+        .data(data)
+        .enter()
+        .append("tr");
+
+    // create a cell in each row for each column
+    var cells = rows.selectAll("td")
+        .data(function(row) {
+			// console.log(row["Text"]);
+            return columns.map(function(column) {
+                return {column: column, value: row[column]};
+            });
+        })
+        .enter()
+        .append("td")
+            .text(function(d) { return d.value; }).style("border", "1px black solid")
+			.style("padding", "5px")
+			.on("mouseover", function(){
+			d3.select(this).style("background-color", "powderblue");
+		  })
+			.on("mouseout", function(){
+			d3.select(this).style("background-color", "white");
+		  });
+
+    return table;
+}
