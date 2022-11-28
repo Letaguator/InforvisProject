@@ -125,9 +125,8 @@ async function drawCharts() {
 	wordCloud = WordCloud(searchedWordsArr, {
 		width: 400,
 		height: 500
-	  })
-		participantChartsDiv.append(wordCloud)
-    
+	});
+	participantChartsDiv.append(wordCloud)
 }
 
 drawCharts();
