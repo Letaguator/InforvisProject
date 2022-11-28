@@ -48,7 +48,6 @@ async function drawTimeline() {
 		return Array.from(interactionTypes);
 	};
 	var timelinediv = document.getElementById("timelineDiv");
-	timelinediv.style = "border-top: 8px solid #4ca3e0;;";
 	timelinediv.innerHTML = 
 	`
 	<h2>Segementations Timeline</h2>
