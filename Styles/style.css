@@ -1,5 +1,11 @@
+/*
+Grey background: #9695a3
+Chart background: #c6c6cf
+*/
+
 body {
     margin: 0;
+    background-color: #9695a3;
 }
 
 #appDiv
@@ -20,14 +26,14 @@ body {
 #navbar
 {
     height: 100vh;
-    border-radius: 4px;
+    border-radius: 0px 4px 4px 0px;
     width: 100px;
     padding: 6px;
     margin-top: auto;
     margin-bottom: auto;
     display: flex;
     flex-direction: column;
-    background-color: lightcoral;
+    background-image: linear-gradient(lightcoral, lightblue);
 }
 
 #navbar button
@@ -45,13 +51,12 @@ body {
 
 #content
 {
-    background-color: #4ca3e0;
+    background-color: #c6c6cf;
 }
 
-#content *
-{
-    margin: 8px;
-    background-color: white;
+svg {
+    border-radius: 4px;
+    background-color: white !important;
 }
 
 #header
