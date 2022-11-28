@@ -65,9 +65,6 @@ async function drawCharts() {
         while (participantChartsDiv.lastElementChild) {
             participantChartsDiv.removeChild(participantChartsDiv.lastElementChild);
         }
-		participantChartsDiv.innerHTML = `
-		<h2>Participant Content</h2>
-	`;
 	participantChartsDiv.style.display = "block";
 	participantChartsDiv.style.width = 600;
 	participantChartsDiv.style.height = 600;
@@ -123,7 +120,6 @@ async function drawCharts() {
 	console.log("CWC: ", searchedWordsArr)
 
 	wordCloud = WordCloud(searchedWordsArr, {
-		width: 400,
 		height: 500
 	});
 	participantChartsDiv.append(wordCloud)

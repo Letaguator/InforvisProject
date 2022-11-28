@@ -182,9 +182,6 @@ async function drawTimeline() {
         while (segmentChartsDiv.lastElementChild) {
             segmentChartsDiv.removeChild(segmentChartsDiv.lastElementChild);
         }
-        segmentChartsDiv.innerHTML = `
-            <h2>Segementation Content</h2>
-        `;
         segmentChartsDiv.style.display = "block";
         segmentChartsDiv.style.width = 600;
         segmentChartsDiv.style.height = 600;
