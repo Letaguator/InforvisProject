@@ -71,7 +71,31 @@ async function drawTimeline() {
 	<select name="docs" id="docs">
 	  <option disabled selected value> -- select an option -- </option>
 	</select>
+	<button id="panLeft"">Pan left</button>
+	<button id="panRight">Pan right</button>
+	<button id="zoomIn"">Zoom in</button>
+	<button id="zoomOut">Zoom out</button>
 	`;
+	document.getElementById('panLeft').addEventListener("click", function() {
+		d3.select('svg')
+			.transition()
+			.call(zoom.translateBy, -500, 0);
+	});
+	document.getElementById('panRight').addEventListener("click", function() {
+		d3.select('svg')
+			.transition()
+			.call(zoom.translateBy, 500, 0);
+	});
+	document.getElementById('zoomIn').addEventListener("click", function() {
+		d3.select('svg')
+			.transition()
+			.call(zoom.scaleBy, 1.5);
+	});
+	document.getElementById('zoomOut').addEventListener("click", function() {
+		d3.select('svg')
+			.transition()
+			.call(zoom.scaleBy, 0.5);
+	});
 	var allDocs = getAllDocs();
 	var docsSelect = document.getElementById('docs');
 	for (var i = 0; i < allDocs.length; i++) {
@@ -132,6 +156,7 @@ async function drawTimeline() {
 
 	var div = d3.select("#timelineDiv").append("div")
 	.attr("class", "tooltip")
+	.style("user-select", "none")
 	.style("opacity", 0);
 
     const handleSegmentClick = (i) => {
