@@ -72,8 +72,8 @@ async function drawTimeline() {
 	  <option disabled selected value> -- select an option -- </option>
 	</select>
 	<button id="clearFilter">Clear Filters</button>
-	<button id="panLeft"">Pan left</button>
-	<button id="panRight">Pan right</button>
+	<button id="moveRight"">Move Right</button>
+	<button id="moveLeft">Move Left</button>
 	<button id="zoomIn"">Zoom in</button>
 	<button id="zoomOut">Zoom out</button>
 	<div id="legend" style="color:white">
@@ -97,12 +97,12 @@ async function drawTimeline() {
 		logsdiv.style.display = "none";
 
 	});
-	document.getElementById('panLeft').addEventListener("click", function() {
+	document.getElementById('moveRight').addEventListener("click", function() {
 		d3.select('svg')
 			.transition()
 			.call(zoom.translateBy, -500, 0);
 	});
-	document.getElementById('panRight').addEventListener("click", function() {
+	document.getElementById('moveLeft').addEventListener("click", function() {
 		d3.select('svg')
 			.transition()
 			.call(zoom.translateBy, 500, 0);
@@ -392,7 +392,7 @@ async function drawTimeline() {
 	
 	let zoom = d3.zoom()
 		.on('zoom', handleZoom)
-		.scaleExtent([1, 1.5])
+		.scaleExtent([0.5, 1.5])
 		.translateExtent([[-90, 30], [width, height]]);
 
 	function handleZoom(e) {
