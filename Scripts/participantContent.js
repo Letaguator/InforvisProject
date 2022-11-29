@@ -85,7 +85,7 @@ async function drawCharts() {
 				height: 500,
 				xPadding: 0.3,
 				color: "darkblue",
-				title: "Longest Visited Documents"
+				title: "Duration of Document Visits"
 			})
 		
 			participantChartsDiv.append(docVisitsBarChart);

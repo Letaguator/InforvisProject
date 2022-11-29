@@ -311,7 +311,7 @@ async function drawTimeline() {
 				height: 500,
 				xPadding: 0.3,
 				color: "rgb(53, 53, 216)",
-				title: "Duration of Document Visits"
+				title: "Duration of Document Visits for Selected Segment"
 			})
 		
 			if(top10Documents.length > 0){
