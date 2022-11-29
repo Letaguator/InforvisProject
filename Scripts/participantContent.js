@@ -65,6 +65,10 @@ async function drawCharts() {
         while (participantChartsDiv.lastElementChild) {
             participantChartsDiv.removeChild(participantChartsDiv.lastElementChild);
         }
+
+		const selectedSegHeader = document.getElementById("selectedSegHeader");
+		selectedSegHeader.innerText = 
+		`Select Segment to Display Data`
 	participantChartsDiv.style.display = "block";
 	participantChartsDiv.style.width = 600;
 	participantChartsDiv.style.height = 600;
@@ -125,7 +129,7 @@ async function drawCharts() {
 	participantChartsDiv.append(wordCloud)
 
 
-	
+
 }
 
 drawCharts();

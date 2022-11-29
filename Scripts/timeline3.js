@@ -250,10 +250,12 @@ async function drawTimeline() {
 
 
 
+		const selectedSegHeader = document.getElementById("selectedSegHeader");
+		selectedSegHeader.innerText = 
+		`Selected Segment ID:${i.ID}`
 
 		segmentChartsDiv.innerHTML = 
 			`
-			<h2>Selected Segement Content ${i.ID}</h2>
 			<div class = "segTextDiv">
 			<p>Total Time Spent: ${result}</p>
 			<p>Words Searched:  ${wordsSearchedArr}</p>
