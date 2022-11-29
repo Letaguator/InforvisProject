@@ -71,6 +71,7 @@ async function drawTimeline() {
 	<select name="docs" id="docs">
 	  <option disabled selected value> -- select an option -- </option>
 	</select>
+	<button id="clearFilter">Clear Filters</button>
 	<button id="panLeft"">Pan left</button>
 	<button id="panRight">Pan right</button>
 	<button id="zoomIn"">Zoom in</button>
@@ -83,7 +84,12 @@ async function drawTimeline() {
 	<span style="background-color:brown; width=5px; margin-right:5px;">Contains document </span>
 	</div>
 	`;
-	
+	var docsSelect = document.getElementById('docs');
+	var actionsOptions = document.getElementById('actions');
+	document.getElementById('clearFilter').addEventListener("click", function() {
+		docsSelect.selectedIndex = 0;
+		actionsOptions.selectedIndex = 0;
+	});
 	document.getElementById('panLeft').addEventListener("click", function() {
 		d3.select('svg')
 			.transition()
@@ -105,7 +111,7 @@ async function drawTimeline() {
 			.call(zoom.scaleBy, 0.5);
 	});
 	var allDocs = getAllDocs();
-	var docsSelect = document.getElementById('docs');
+	// var docsSelect = document.getElementById('docs');
 	for (var i = 0; i < allDocs.length; i++) {
 		var option = document.createElement('option');
 		// option.value(allDocs[i]);
@@ -126,7 +132,7 @@ async function drawTimeline() {
 	  });
 	
 	
-	var actionsOptions = document.getElementById('actions');
+	// var actionsOptions = document.getElementById('actions');
 	actionsOptions.addEventListener("change", function() {
 		d3.selectAll(timesegments).style("fill", "#FFC20A")
 		
@@ -446,6 +452,9 @@ async function drawTimeline() {
 				d3.selectAll(timesegments).style("fill", "#FFC20A");
 				var segmentChartsDiv = document.getElementById("timelineDivSegmentContent");
 				segmentChartsDiv.style.display = "none";
+				var logsdiv = document.getElementById("interactionLog");
+				segmentChartsDiv.style.display = "none";
+				logsdiv.style.display = "none";
 			}else{
 				d3.selectAll(timesegments).style("fill", "#FFC20A")
 			
@@ -476,6 +485,8 @@ async function drawTimeline() {
 drawTimeline();
 
 function tabulate(data, columns) {
+	var logsdiv = document.getElementById("interactionLog");
+	logsdiv.style.display = "block";
     var table = d3.select("#rawInteractionLog").append("table").style("border-collapse", "collapse")
 	.style("border", "2px black solid");
         thead = table.append("thead"),
