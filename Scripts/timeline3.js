@@ -505,10 +505,13 @@ async function drawTimeline() {
 			// .attr('opacity', '1')
 		})
 		.on('click', function(e, i) {
-			console.log("Printing: ", i)
-			
-
-			d3.selectAll(timesegments).style("fill", "#FFC20A")
+			if(d3.select(this).style("fill")=="darkblue"){
+				// alert('hey')
+				d3.selectAll(timesegments).style("fill", "#FFC20A");
+				var segmentChartsDiv = document.getElementById("timelineDivSegmentContent");
+				segmentChartsDiv.style.display = "none";
+			}else{
+				d3.selectAll(timesegments).style("fill", "#FFC20A")
 			// d3.select(this).style("fill", "green")
             // if (prevElem) {
             //     prevElem.style("fill", prevColour);
@@ -534,10 +537,11 @@ async function drawTimeline() {
 		  	}).style('fill', 'green');
 			d3.select(this)
 			  .style('fill', 'darkblue');
+			}
 		})
-		.on("dblclick",function(e, i){ 
-			d3.selectAll(timesegments).style("fill", "#FFC20A");
-		})
+		// .on("dblclick",function(e, i){ 
+		// 	d3.selectAll(timesegments).style("fill", "#FFC20A");
+		// })
 		// if(actionOptionsSelected !== ""){
 		// 	d3.selectAll(timesegments).style('fill', 'cyan');
 		// }
