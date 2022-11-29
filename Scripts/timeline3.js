@@ -371,7 +371,7 @@ async function drawTimeline() {
 		// .attr("width", width + margin.left + margin.right)
 		.attr("width", "98.3%")
 		// .attr("height", height + 100 + margin.top + margin.bottom)
-		.attr("height","60%")
+		.attr("height","70%")
 		.append("g")
 		.attr("transform", `translate(${margin.left}, ${margin.top})`);
 
@@ -532,6 +532,9 @@ async function drawTimeline() {
 		  	}).style('fill', 'green');
 			d3.select(this)
 			  .style('fill', 'darkblue');
+		})
+		.on("dblclick",function(e, i){ 
+			d3.selectAll(timesegments).style("fill", "#FFC20A");
 		})
 		// if(actionOptionsSelected !== ""){
 		// 	d3.selectAll(timesegments).style('fill', 'cyan');
