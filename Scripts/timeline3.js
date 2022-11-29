@@ -89,6 +89,13 @@ async function drawTimeline() {
 	document.getElementById('clearFilter').addEventListener("click", function() {
 		docsSelect.selectedIndex = 0;
 		actionsOptions.selectedIndex = 0;
+		d3.selectAll(timesegments).style("fill", "#FFC20A");
+		var segmentChartsDiv = document.getElementById("timelineDivSegmentContent");
+		segmentChartsDiv.style.display = "none";
+		var logsdiv = document.getElementById("interactionLog");
+		segmentChartsDiv.style.display = "none";
+		logsdiv.style.display = "none";
+
 	});
 	document.getElementById('panLeft').addEventListener("click", function() {
 		d3.select('svg')
