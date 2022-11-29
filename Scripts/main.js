@@ -76,6 +76,9 @@ function populateUserSelector()
 				rawInteractionLog.removeChild(rawInteractionLog.lastElementChild);
 			}
 			rawInteractionLog.style.paddingBottom = "";
+			var interactionLog = document.getElementById("interactionLog");
+			interactionLog.style.paddingBottom = "";
+			interactionLog.innerHTML= ""
 			
 			drawTimeline();
 		};

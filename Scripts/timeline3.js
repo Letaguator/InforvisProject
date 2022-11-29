@@ -125,14 +125,11 @@ async function drawTimeline() {
 		  }).style('fill', 'brown');
 	  });
 	
-	// docsSelect.options[allDocs.length] = new Option(`${allDocs}`, `${allDocs}`);
-	// var actionsList = getActions();
+	
 	var actionsOptions = document.getElementById('actions');
 	actionsOptions.addEventListener("change", function() {
 		d3.selectAll(timesegments).style("fill", "#FFC20A")
-		// var val = document.getElementById("actions").value;
-		// console.log("----------------");
-		// console.log(actionsOptions.value);
+		
 		actionOptionsSelected = actionsOptions.value;
 		d3.selectAll(timesegments).filter(function(d, i) {
 			// console.log("Documents of selected segment: @timeline", docs);
@@ -140,27 +137,10 @@ async function drawTimeline() {
 			var currActions = getActions(d);
 			// console.log("docs in filter @timeline", currDocs);
 			return currActions.includes(actionOptionsSelected);
-			// const intersection = docs.filter(element => currDocs.includes(element));
-			// console.log("common docs @timeline",i,":",intersection);
-			// if(intersection.length>0){
-			// 	console.log("to be highlighted @ timeline",i);
-			// 	return true;
-			// }
-			// return i % 2 === 0;
+			
 		  }).style('fill', '#40B0A6');
 	  });
-	// var prevElem, prevColour;
-	// actionsOptions.onchange = (e)=>{
-	// 	console.log("----------------");
-	// 	console.log(e);
-	// 	// alert(e.target);
-	// }
-	// var handleActionsOption = ()=>{
-	// 	var val = document.getElementById("actions").value;
-	// 	console.log("----------------");
-	// 	console.log(val);
-	// 	// alert(e.target);
-	// }
+	
 
 	var div = d3.select("#timelineDiv").append("div")
 	.attr("class", "tooltip")
@@ -274,7 +254,8 @@ async function drawTimeline() {
                 width: 500,
                 height: 500,
                 xPadding: 0.3,
-                color: "rgb(53, 53, 216)"
+                color: "rgb(53, 53, 216)",
+				title: "Interactions During Selected Segment"
             })
 
 
@@ -305,9 +286,7 @@ async function drawTimeline() {
             let obj = {documentName: sortedDocKeys[i], duration: sortedDocVals[i]/10};
             top10Documents.push(obj);
         }
-        // var docVisitsBarchartDiv = document.getElementById("docVisitsBarchartDiv");
-		// docVisitsBarchartDiv.style.width = 600;
-		// docVisitsBarchartDiv.style.height = 600;
+
 		docVisitsBarChart = BarChart(
 			top10Documents,
 			{
@@ -318,32 +297,28 @@ async function drawTimeline() {
 				width: 500,
 				height: 500,
 				xPadding: 0.3,
-				color: "rgb(53, 53, 216)"
+				color: "rgb(53, 53, 216)",
+				title: "Duration of Document Visits"
 			})
 		
 			if(top10Documents.length > 0){
 				segmentChartsDiv.append(docVisitsBarChart);
 			}
 		
-			var rawInteractionLog = document.getElementById("rawInteractionLog");
-			rawInteractionLog.style.paddingBottom = "5px";
-			rawInteractionLog.innerHTML = 
-			`
-			<h2>Interactions during this Segment</h2>`;
+			var interactionLog = document.getElementById("interactionLog");
+			interactionLog.style.paddingBottom = "5px";
+			interactionLog.innerHTML =` <details>
+			<summary>
+			<h2 class="collapsible">Interactions during this Segment</h2>
+			</summary>
+			<p>
+			  <div id="rawInteractionLog"></div>
+			</p>
+		  </details>
+</div>`;
 			var rawInteractionLog = tabulate(i.interactions,[ "time","InteractionType", "Text" ]);
 		return sortedDocKeys;
-        // let ele = document.getElementById('timelineDivSegmentContent');
-        
-        // ele.style.background = "green";
-        // ele.innerHTML = `
-        // <ul>
-        //     <li>Interaction ID: ${i.ID}</li>
-        //     <li>Start Time: ${i.start} sec</li>
-        //     <li>End Time: ${i.end} sec</li>
-        //     <li>Interaction Time: ${i['length (sec)']} sec</li>
-        //     </ul>
-        
-        // `
+
     }
 	const getDocs = (i) => {
 		const documentOpens = new Set()
@@ -377,22 +352,6 @@ async function drawTimeline() {
 		.append("g")
 		.attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-
-	// var specifier = "%S";
-	// var parsedData = ds1_UISegmented.map(function(d) {
-	//     return d3.timeParse(specifier)(d)
-	// });
-	// var scale = d3.scaleTime()
-	//     .domain(d3.extent(parsedData))
-	//     .range([0, 6000]);
-	// var axis = d3.axisBottom(scale)
-	// .tickValues(parsedData)
-	// .tickFormat(function(d) {
-	//     return d3.timeFormat(specifier)(d)
-	// });
-	// var x = svg.append("g")
-	// .attr("transform", `translate(0, ${height})`)
-	// .call(axis)
 	// Add X axis
 	const x = d3.scaleLinear()
 		.domain([0, 5500])
@@ -400,18 +359,14 @@ async function drawTimeline() {
 	svg.append("g")
 		.attr("transform", `translate(0, ${height})`)
 		.call(d3.axisBottom(x))
-		// .tickValues(parsedData)
-		// .tickFormat(function(d) {
-		// return d3.timeFormat(specifier)(d)
-		// })
+		
 		.selectAll("text")
 		.style("text-anchor", "end");
 	svg.append("text")
 		.attr("class", "x label")
 		.attr("text-anchor", "middle")
 		.attr("transform", "translate(" + (margin.left - 40) + ", " + (height + (margin.bottom / 2.0) + 20) + ")")
-		// .attr("x", width)
-		// .attr("y", height - 6)
+		
 		.text("time (in seconds)");
 	// Y axis
 	const y = d3.scaleBand()
@@ -421,12 +376,7 @@ async function drawTimeline() {
 	svg.append("g")
 		.call(d3.axisLeft(y).tickValues([]))
 		.call(g => g.select(".domain").remove())
-	// svg.append("text")
-	//     .attr("class", "y label")
-	//     .attr("text-anchor", "middle")
-	//     .attr("y", 6)
-	//     .attr("transform", "translate(" + (margin.left - 120) + ", " + (height / 2.0) + ") rotate(-90)")
-	//     .text("Interactions");
+	
 	let zoom = d3.zoom()
 		.on('zoom', handleZoom)
 		.scaleExtent([1, 1.5])
@@ -449,30 +399,18 @@ async function drawTimeline() {
 		.data(ds1_UISegmented)
 		.join("rect")
 		.attr("x", d => x(d['start']))
-		// .attr("y", d => y(d.ID))
+	
 		.attr("width", d => x(d['length (sec)']))
 		.attr("height", "100")
-		// .attr("height", height)
 		.attr("stroke", "white")
 		.attr("stroke-width", "1")
-		// .attr("fill", "lime")
-		// .style("background-color", function(d, i) {
-		//     return color(i);
-		//   })
+		
 		.attr("fill", function(d, i) {
 			return colour(i);
 		})
 
 		.on('mouseover', function(d, i) {
-			// console.log("id",i);
-			// // alert(d.ID,d.start,d.end)
-			// div.transition()		
-			// .duration(200)		
-			// .style("opacity", 1);		
-			// div	.html(i.ID + "<br/>"  + i.start+ "<br/>"+i.end)
-			// // .position("relative")
-			// .style("left", (i.start+40) + "px")		
-			// .style("top", (i.ID) + "px");
+		
 			d3.select(this).transition()
 				.duration('10')
 				.attr('opacity', '0.5')
@@ -500,9 +438,7 @@ async function drawTimeline() {
 			div.transition()
 				.duration(100)
 				.style("opacity", 0);
-			// d3.select(this).transition()
-			// .duration('50')
-			// .attr('opacity', '1')
+			
 		})
 		.on('click', function(e, i) {
 			if(d3.select(this).style("fill")=="darkblue"){
@@ -512,12 +448,7 @@ async function drawTimeline() {
 				segmentChartsDiv.style.display = "none";
 			}else{
 				d3.selectAll(timesegments).style("fill", "#FFC20A")
-			// d3.select(this).style("fill", "green")
-            // if (prevElem) {
-            //     prevElem.style("fill", prevColour);
-            // };
-            // prevElem = d3.select(this);
-            // prevColour = d3.select(this).style("fill");
+			
             d3.select(this)
                 .style('fill', 'darkblue');
             var docs = handleSegmentClick(i);
@@ -539,23 +470,14 @@ async function drawTimeline() {
 			  .style('fill', 'darkblue');
 			}
 		})
-		// .on("dblclick",function(e, i){ 
-		// 	d3.selectAll(timesegments).style("fill", "#FFC20A");
-		// })
-		// if(actionOptionsSelected !== ""){
-		// 	d3.selectAll(timesegments).style('fill', 'cyan');
-		// }
-	// .on('click', function (d, i) {
-	//         d3.select(this).transition()
-	//         .duration('50')
-	//         .attr('opacity', '1')})
+	
 	initZoom()
 }
 drawTimeline();
 
 function tabulate(data, columns) {
     var table = d3.select("#rawInteractionLog").append("table").style("border-collapse", "collapse")
-	.style("border", "2px white solid");
+	.style("border", "2px black solid");
         thead = table.append("thead"),
         tbody = table.append("tbody");
 	// console.log(data);
@@ -565,7 +487,7 @@ function tabulate(data, columns) {
         .data(columns)
         .enter()
         .append("th")
-            .text(function(column) { return column; }).style("border", "1px white solid")
+            .text(function(column) { return column; }).style("border", "1px black solid")
 			.style("padding", "5px")
 			.style("background-color", "lightgray")
 			.style("font-weight", "bold")
@@ -587,14 +509,10 @@ function tabulate(data, columns) {
         })
         .enter()
         .append("td")
-            .text(function(d) { return d.value; }).style("border", "1px white solid")
-			.style("padding", "5px")
-			.on("mouseover", function(){
-			d3.select(this).style("background-color", "powdergreen");
-		  })
-			.on("mouseout", function(){
-			d3.select(this).style("background-color", "white");
-		  });
+            .text(function(d) { return d.value; }).style("border", "1px black solid")
+			.style("background-color", "white")
+			.style("padding", "5px");
+
 
     return table;
 }

@@ -73,13 +73,14 @@ async function drawCharts() {
 	participantChartsDiv.style.width = 600;
 	participantChartsDiv.style.height = 600;
 	// Documents visited for the longest time
+	var y =  Math.max(...top10Documents.map(o => o.duration))
 		docVisitsBarChart = BarChart(
 			top10Documents,
 			{
 				x: (d) => d.documentName,
 				y: (d) => d.duration,
 				yLabel: "Seconds",
-				yDomain: [0, 1500],
+				yDomain: [0, y],
 				width: 500,
 				height: 500,
 				xPadding: 0.3,
@@ -93,13 +94,14 @@ async function drawCharts() {
 	
     // Interaction Count Chart
 	interactionCount = interactionCount.sort((a, b) => b.count - a.count);
-    barChart = BarChart(
+    var interactionY =  Math.max(...interactionCount.map(o => o.count))
+	barChart = BarChart(
         interactionCount,
         {
             x: (d) => d.actionName,
             y: (d) => d.count,
             yLabel: "Count",
-            yDomain: [0, 200],
+            yDomain: [0, interactionY],
             width: 500,
             height: 500,
             xPadding: 0.3,
