@@ -66,6 +66,7 @@ function populateUserSelector()
 			participantId = i;
 			current = i;
 			drawCharts();
+			drawTimeline();
 			//remove the old segmentation charts div before displaying new one
 			var segmentChartsDiv = document.getElementById("timelineDivSegmentContent");
 			while (segmentChartsDiv.lastElementChild) {
@@ -79,8 +80,6 @@ function populateUserSelector()
 			var interactionLog = document.getElementById("interactionLog");
 			interactionLog.style.paddingBottom = "";
 			interactionLog.innerHTML= ""
-			
-			drawTimeline();
 		};
 		userSelectorDiv.appendChild(button);
 	}
