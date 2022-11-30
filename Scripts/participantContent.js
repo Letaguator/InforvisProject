@@ -126,14 +126,20 @@ async function drawCharts() {
 	console.log("CWC: ", searchedWordsArr)
 
 	wordCloud = WordCloud(searchedWordsArr, {
-		width:200,
-		height: 500
+		width: 350,
+		height: 400
 		
 	});
-	participantChartsDiv.append(wordCloud)
-
-
-
+	const wrapper = document.createElement("div");
+	wrapper.style.backgroundColor = "white";
+	wrapper.style.borderRadius = "4px";
+	wrapper.style.width = "450px";
+	wrapper.style.textAlign = "center";
+	const header = document.createElement("h2");
+	header.innerText = "Searched words"
+	wrapper.append(header);
+	wrapper.append(wordCloud);
+	participantChartsDiv.append(wrapper);
 }
 
 drawCharts();

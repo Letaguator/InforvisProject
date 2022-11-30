@@ -107,6 +107,10 @@ svg {
     background-color: beige;
 }
 
+#participantDivContent svg {
+    margin: 6px;
+}
+
 
 .segTextDiv 
 {
