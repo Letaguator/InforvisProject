@@ -126,7 +126,9 @@ async function drawCharts() {
 	console.log("CWC: ", searchedWordsArr)
 
 	wordCloud = WordCloud(searchedWordsArr, {
+		width:200,
 		height: 500
+		
 	});
 	participantChartsDiv.append(wordCloud)
 
