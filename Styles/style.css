@@ -5,7 +5,7 @@ Chart background: #c6c6cf
 
 body {
     margin: 0;
-    background-color: #9695a3;
+    /* background-color: #9695a3; */
     overflow: hidden;
 }
 
@@ -23,7 +23,8 @@ body {
 #homePage div {
     border-radius: 6px;
     background-color: white;
-    margin: 0px 48px 0px 48px;
+    margin: 6px 32px 6px 32px;
+    padding: 4px;
 }
 
 #userPage {
@@ -40,12 +41,14 @@ body {
     margin-bottom: auto;
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(lightcoral, lightblue);
+    background-image: linear-gradient(#FA4616, #0021A5);
 }
 
 #navbar button
 {
+    padding: 4px;
     margin: 2px;
+    border-radius: 4px;
     font-size: large;
     border: 0px;
     background-color: beige;
@@ -53,7 +56,8 @@ body {
 
 #navbar button:hover
 {
-    background-color: orange;
+    color: white;
+    background-color: #0021A5;
 }
 
 .dataEntry
@@ -80,6 +84,8 @@ svg {
 
 #header
 {
+    border-radius: 4px 4px 0px 0px;
+    background-color: #FA4616;
     height: 5vh;
     display: flex;
     flex-direction: row;
@@ -90,7 +96,7 @@ svg {
 #userSelectorDiv
 {
     margin: auto;
-    background-color: #4ca3e0;
+    background-color: #0021A5;
     border-radius: 3px;
 }
 
@@ -108,6 +114,10 @@ svg {
 }
 
 #participantDivContent svg {
+    margin: 6px;
+}
+
+#participantDivContent div {
     margin: 6px;
 }
 
