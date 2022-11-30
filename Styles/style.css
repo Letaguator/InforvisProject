@@ -111,6 +111,13 @@ svg {
     margin: 6px;
 }
 
+#timelineDivSegmentContent svg {
+    margin: 6px;
+}
+
+#timelineDivSegmentContent div {
+    margin: 6px;
+}
 
 .segTextDiv 
 {
@@ -134,8 +141,8 @@ svg {
 
 
 .collapsible {
-    background-color: #eee;
-    color: #444;
+    background-color: darkgrey;
+    color: white;
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -147,7 +154,7 @@ svg {
   
   /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
   .active, .collapsible:hover {
-    background-color: #ccc;
+    background-color: grey;
   }
   
   .collapsible:after {
