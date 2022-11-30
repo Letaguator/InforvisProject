@@ -1,4 +1,198 @@
-#appDiv {
-    display: flex;
-    flex-wrap: wrap;
+/*
+Grey background: #9695a3
+Chart background: #c6c6cf
+*/
+
+body {
+    margin: 0;
+    /* background-color: #9695a3; */
+    overflow: hidden;
 }
+
+#appDiv
+{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+#homePage {
+    flex-grow: 1;
+}
+
+#homePage div {
+    border-radius: 6px;
+    background-color: white;
+    margin: 6px 32px 6px 32px;
+    padding: 4px;
+}
+
+#userPage {
+    flex-grow: 1;
+}
+
+#navbar
+{
+    height: 100vh;
+    border-radius: 0px 4px 4px 0px;
+    width: 100px;
+    padding: 6px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(#FA4616, #0021A5);
+}
+
+#navbar button
+{
+    padding: 4px;
+    margin: 2px;
+    border-radius: 4px;
+    font-size: large;
+    border: 0px;
+    background-color: beige;
+}
+
+#navbar button:hover
+{
+    color: white;
+    background-color: #0021A5;
+}
+
+.dataEntry
+{
+    border-radius: 3px;
+    border: 3px solid rgb(64, 65, 107);
+    padding: 4px;
+    margin: 8px;
+}
+
+#content
+{
+    background-image: linear-gradient(#b0b0bb, #dcdce6);
+    /* background-color: #c6c6cf; */
+    height: 95vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+svg {
+    border-radius: 4px;
+    background-color: white !important;
+}
+
+#header
+{
+    border-radius: 4px 4px 0px 0px;
+    background-color: #FA4616;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    margin: auto;
+}
+
+#userSelectorDiv
+{
+    margin: auto;
+    background-color: #0021A5;
+    border-radius: 3px;
+}
+
+.userSelectionButton
+{
+    height: 4vh;
+    width: 70px;
+    margin-top: 6px;
+    border: none;
+    background-color: #63beff;
+}
+.userSelectionButton:hover
+{
+    background-color: beige;
+}
+
+#participantDivContent svg {
+    margin: 6px;
+}
+
+#participantDivContent div {
+    margin: 6px;
+}
+
+#timelineDivSegmentContent svg {
+    margin: 6px;
+}
+
+#timelineDivSegmentContent div {
+    margin: 6px;
+}
+
+.segTextDiv 
+{
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 350px;
+    background-color: white;
+    border-radius: 4px;
+    margin:2px;
+    padding:2px;
+
+}
+
+
+.segTextDiv *
+{
+    font-size: large;
+    margin:4px;
+}
+
+
+.collapsible {
+    background-color: darkgrey;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .collapsible:hover {
+    background-color: grey;
+  }
+  
+  .collapsible:after {
+    content: '\25BC'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+  }
+  details {
+    user-select: none;
+  }
+  
+  
+  summary {
+    display: flex;
+    cursor: pointer;
+  }
+  
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  info { 
+    padding-left: 5px;
+    padding-right: 5px;
+  }

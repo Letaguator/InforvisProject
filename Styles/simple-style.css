@@ -62,7 +62,10 @@ div.tooltip {
    border-radius: 8px;			
 }
 div#timelineDiv {
-   height: 600px;
-   width: 100%;
-   overflow: scroll;
+   height: 330px;
+   width: 98.3%;
+   /* overflow: scroll; */
   }
+div#timelineDivSegmentContent{
+   display: none;
+}

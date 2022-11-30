@@ -10,8 +10,8 @@ function BarChart(data, {
     marginRight = 20, // the right margin, in pixels
     marginBottom = 100, // the bottom margin, in pixels
     marginLeft = 40, // the left margin, in pixels
-    width = 500, // the outer width of the chart, in pixels
-    height = 500, // the outer height of the chart, in pixels
+    width = 800, // the outer width of the chart, in pixels
+    height = 800, // the outer height of the chart, in pixels
     xDomain, // an array of (ordinal) x-values
     xRange = [marginLeft, (width - marginRight) + 50], // [left, right]
     yType = d3.scaleLinear, // type of y-scale
@@ -20,6 +20,7 @@ function BarChart(data, {
     xPadding = 0.1, // amount of x-range to reserve to separate bars
     yFormat, // a format specifier string for the y-axis
     yLabel, // a label for the y-axis
+    title,
     color = "currentColor", // bar fill color
     duration: initialDuration = 250, // transition duration, in milliseconds
     delay: initialDelay = (_, i) => i * 20 // per-element transition delay, in milliseconds
@@ -47,7 +48,15 @@ function BarChart(data, {
         .attr("width", width)
         .attr("height", height)
         .attr("viewBox", [0, 0, width, height])
+        
         .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
+        svg.append("text")
+        .attr("x", width/2)
+        .attr("y", 10)
+        .attr("text-anchor", "middle")
+        .style("font-size", "14px")
+        .text(title);
   
     const yGroup = svg.append("g")
         .attr("transform", `translate(${marginLeft},0)`)

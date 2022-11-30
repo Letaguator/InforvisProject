@@ -1,30 +1,105 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-<title>Log Visualizer</title>
+	<title>LogVis</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" href="./Styles/style.css">
 	<link rel="stylesheet" href="./Styles/simple-style.css">
-	<!-- <link rel="icon" href="./favicon/favicon.ico"> -->
+	<script src="Libraries/vis/dist/vis.js"></script>
+	<link href="Libraries/vis/dist/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+	<link rel="icon" href="Icon.png">
 </head>
 
 <body>
 	<div id="appDiv">
-		<div id="timelineDiv">
-			<h2>Segementations Timeline</h2>
+		<div id="navbar">
+			<h1>LogVis</h1>
+			<button id="overviewButton">Overview</button>
+			<button id="userAnalysisButton">User Analysis</button>
 		</div>
-		<div id="barchartDiv">
-			<h2>Interaction counts</h2>
+		<div id="homePage">
+			<div>
+				<h2>Log Visualizer Background</h2>
+				<p>8 Analysts interact with an Arms Dealing Dataset with the goal of making sense of this data. 
+					They have various ways to interact with the data, such as searching/reading through documents and highlighting text. 
+				</p>
+			</div>
+			<div>
+				<h2>Project Goal</h2>
+				<p>It is difficult for researchers to understand the steps taken by Analysts to reach their conclusions. 
+					Our goal is to provide an interactive visualization system that provides information about the analysts sensemaking process, 
+					including the key actions taken by the analysts throughout their study.
+				</p>
+			</div>
+			<div>
+				<h2>Target Users</h2>
+				<p>Our system is aimed at researchers that would like a breakdown of the actions taken by analysts during their study fo the Arms Dealing Dataset.</p>
+			</div>
+			<div>
+				<h2>Insights We Provide</h2>
+				<p>
+					- Insights for each Analyst (8 total) <br/> 
+					- Breakdown of the entire analysts study into segments <br/> 
+					- Critical Documents visited by analyst <br/> 
+					- Type of action executed by analyst<br/> 
+					- Words that analyst included in searching<br/> 
+					- Statements highlighted by analyst <br/> 
+				</p>
+			</div>
+			<div>
+				<h2>InfoVis Tools</h2>
+				<h3>
+					Interactive Segmentation Timeline 
+				</h3>
+				<h3>
+					Filtering by User 
+				</h3>
+				<h3>
+					Participant Content 
+				</h3>
+				<h3>
+					Segment Content 
+				</h3>
+			</div>
 		</div>
-		<div id="docVisitsBarchartDiv">
-			<h2>Ten Most Visited Documents</h2>
+		<div id="userPage">
+			<div id="header">
+				<div id="userSelectorDiv">
+					
+				</div>
+			</div>
+			<div id="content">
+				<div id="timelineDiv" class="dataEntry">
+					<h2>Segementations Timeline</h2>
+				</div>
+				<div id="timelineDivSegment" class="dataEntry">
+					<!-- <h2>Segement Content</h2> -->
+					<h2 id="selectedSegHeader">Select Segment to Display Data</h2>
+
+					<div id="timelineDivSegmentContent">
+					</div>
+					<div id="interactionLog">
+						<div id="rawInteractionLog">
+						</div>
+					</div>
+				</div>
+				<div id="participantDiv" class="dataEntry">
+					<h2>Participant Content</h2>
+					<div id="participantDivContent">
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<script src="./Libraries/d3.v7.min.js"></script>
 	<script src="./Libraries/barchartLib.js"></script>
+	<script src="./Libraries/d3-dispatch.js"></script>
+	<script src="./Libraries/d3Cloud.js"></script>
+	<script src="./Libraries/wordCloudLib.js"></script>
 	<script src="./Scripts/main.js"></script>
-	<script src="./Scripts/barchart.js"></script>
+	<script src="./Scripts/navbar.js"></script>
+	<script src="./Scripts/participantContent.js"></script>
 	<script src="./Scripts/timeline.js"></script>
 </body>
 </html>
