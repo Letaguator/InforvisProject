@@ -257,19 +257,33 @@ async function drawTimeline() {
 			</div>
 			`
         interactionCount = interactionCount.sort((a, b) => b.count - a.count);
-        barChart = BarChart(
-            interactionCount,
-            {
-                x: (d) => d.actionName,
-                y: (d) => d.count,
-                yLabel: "Count",
-                yDomain: [0, 20],
-                width: 500,
-                height: 500,
-                xPadding: 0.3,
-                color: "rgb(53, 53, 216)",
+		var interactionY =  Math.max(...interactionCount.map(o => o.count))
+		barChart = BarChart(
+			interactionCount,
+			{
+				x: (d) => d.actionName,
+				y: (d) => d.count,
+				yLabel: "Count",
+				yDomain: [0, interactionY],
+				width: 500,
+				height: 500,
+				xPadding: 0.3,
+				color: "darkblue",
 				title: "Interactions During Selected Segment"
-            })
+			})
+        // barChart = BarChart(
+        //     interactionCount,
+        //     {
+        //         x: (d) => d.actionName,
+        //         y: (d) => d.count,
+        //         yLabel: "Count",
+        //         yDomain: [0, 20],
+        //         width: 500,
+        //         height: 500,
+        //         xPadding: 0.3,
+        //         color: "rgb(53, 53, 216)",
+		// 		title: "Interactions During Selected Segment"
+        //     })
 
 
         segmentChartsDiv.append(barChart);   
@@ -299,20 +313,33 @@ async function drawTimeline() {
             let obj = {documentName: sortedDocKeys[i], duration: sortedDocVals[i]/10};
             top10Documents.push(obj);
         }
-
+		var y =  Math.max(...top10Documents.map(o => o.duration))
 		docVisitsBarChart = BarChart(
 			top10Documents,
 			{
 				x: (d) => d.documentName,
 				y: (d) => d.duration,
 				yLabel: "Seconds",
-				yDomain: [0, 1600],
+				yDomain: [0, y],
 				width: 500,
 				height: 500,
 				xPadding: 0.3,
-				color: "rgb(53, 53, 216)",
+				color: "darkblue",
 				title: "Duration of Document Visits for Selected Segment"
 			})
+		// docVisitsBarChart = BarChart(
+		// 	top10Documents,
+		// 	{
+		// 		x: (d) => d.documentName,
+		// 		y: (d) => d.duration,
+		// 		yLabel: "Seconds",
+		// 		yDomain: [0, 1600],
+		// 		width: 500,
+		// 		height: 500,
+		// 		xPadding: 0.3,
+		// 		color: "rgb(53, 53, 216)",
+		// 		title: "Duration of Document Visits for Selected Segment"
+		// 	})
 		
 			if(top10Documents.length > 0){
 				segmentChartsDiv.append(docVisitsBarChart);
