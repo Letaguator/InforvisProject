@@ -51,7 +51,7 @@ function populateUserSelector()
 		const button = document.createElement("button");
 		buttons.push(button);
 		button.className = "userSelectionButton";
-		button.innerHTML = "User " + (i + 1);
+		button.innerHTML = "Analyst " + (i + 1);
 		if(i == current){
 			button.style = "color: white; background-color: #0021A5";
 		}
