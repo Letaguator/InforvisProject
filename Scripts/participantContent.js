@@ -81,10 +81,10 @@ async function drawCharts() {
 				y: (d) => d.duration,
 				yLabel: "Seconds",
 				yDomain: [0, y],
-				width: 500,
-				height: 500,
+				width: 400,
+				height: 350,
 				xPadding: 0.3,
-				color: "darkblue",
+				color: "#16225C",
 				title: "Duration of Document Visits"
 			})
 		
@@ -102,10 +102,10 @@ async function drawCharts() {
             y: (d) => d.count,
             yLabel: "Count",
             yDomain: [0, interactionY],
-            width: 500,
-            height: 500,
+            width: 400,
+            height: 350,
             xPadding: 0.3,
-            color: "darkblue",
+            color: "#16225C",
 			title: "Interaction Count"
         })
     
@@ -127,7 +127,7 @@ async function drawCharts() {
 
 	wordCloud = WordCloud(searchedWordsArr, {
 		width: 350,
-		height: 400
+		height: 350
 		
 	});
 	const wrapper = document.createElement("div");

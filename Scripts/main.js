@@ -53,14 +53,14 @@ function populateUserSelector()
 		button.className = "userSelectionButton";
 		button.innerHTML = "Analyst " + (i + 1);
 		if(i == current){
-			button.style = "color: white; background-color: #0021A5";
+			button.style = "color: white; background-color: #16225C";
 		}
 		button.onclick = (evt) => {
 			let targetUser = "P" + (i + 1);
 			buttons.forEach(btn => {
 				btn.style = "";
 			});
-			button.style = "color: white; background-color: #0021A5";
+			button.style = "color: white; background-color: #16225C";
 			FILEPATHS.map(vals => [vals[0].replace(currentSelection, targetUser), vals[1].replace(currentSelection, targetUser)]);
 			currentSelection = targetUser;
 			participantId = i;

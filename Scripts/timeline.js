@@ -77,11 +77,11 @@ async function drawTimeline() {
 	<button id="zoomOut">Zoom out</button>
 	<button id="zoomIn"">Zoom in</button>
 	<div id="legend" style="color:white">
-	<span style="background-color:#FA4616; width=5px; margin-right:5px;">No Filter </span>
-	<span style="background-color:darkblue; width=5px; margin-right:5px;">Selected </span>
-	<span style="background-color:green; width=5px; margin-right:5px;">Similar to selected </span>
-	<span style="background-color:#40B0A6; width=5px; margin-right:5px;">Contains action </span>
-	<span style="background-color:brown; width=5px; margin-right:5px;">Contains document </span>
+	<span style="background-color:#2175AD; width=5px; margin-right:5px;">No Filter </span>
+	<span style="background-color:#16225C; width=5px; margin-right:5px;">Selected </span>
+	<span style="background-color:#004D41; width=5px; margin-right:5px;">Similar to selected </span>
+	<span style="background-color:#DDC107; width=5px; margin-right:5px;">Contains action </span>
+	<span style="background-color:#D81B60; width=5px; margin-right:5px;">Contains document </span>
 	</div>
 	`;
 	var docsSelect = document.getElementById('docs');
@@ -89,7 +89,7 @@ async function drawTimeline() {
 	document.getElementById('clearFilter').addEventListener("click", function() {
 		docsSelect.selectedIndex = 0;
 		actionsOptions.selectedIndex = 0;
-		d3.selectAll(timesegments).style("fill", "#FA4616");
+		d3.selectAll(timesegments).style("fill", "#2175AD");
 		var segmentChartsDiv = document.getElementById("timelineDivSegmentContent");
 		segmentChartsDiv.style.display = "none";
 		var logsdiv = document.getElementById("interactionLog");
@@ -127,7 +127,7 @@ async function drawTimeline() {
 		docsSelect.appendChild(option);
 	}
 	docsSelect.addEventListener("change", function() {
-		d3.selectAll(timesegments).style("fill", "#FA4616")
+		d3.selectAll(timesegments).style("fill", "#2175AD")
 		// var val = document.getElementById("actions").value;
 		// console.log("----------------");
 		// console.log(docsSelect.value);
@@ -135,13 +135,13 @@ async function drawTimeline() {
 		d3.selectAll(timesegments).filter(function(d, i) {
 			var currDocs = getDocs(d);
 			return currDocs.includes(docsSelectSelected);
-		  }).style('fill', 'brown');
+		  }).style('fill', '#D81B60');
 	  });
 	
 	
 	// var actionsOptions = document.getElementById('actions');
 	actionsOptions.addEventListener("change", function() {
-		d3.selectAll(timesegments).style("fill", "#FA4616")
+		d3.selectAll(timesegments).style("fill", "#2175AD")
 		
 		actionOptionsSelected = actionsOptions.value;
 		d3.selectAll(timesegments).filter(function(d, i) {
@@ -151,7 +151,7 @@ async function drawTimeline() {
 			// console.log("docs in filter @timeline", currDocs);
 			return currActions.includes(actionOptionsSelected);
 			
-		  }).style('fill', '#40B0A6');
+		  }).style('fill', '#DDC107');
 	  });
 	
 
@@ -268,7 +268,7 @@ async function drawTimeline() {
 				width: 500,
 				height: 500,
 				xPadding: 0.3,
-				color: "darkblue",
+				color: "#16225C",
 				title: "Interactions During Selected Segment"
 			})
         // barChart = BarChart(
@@ -324,7 +324,7 @@ async function drawTimeline() {
 				width: 500,
 				height: 500,
 				xPadding: 0.3,
-				color: "darkblue",
+				color: "#16225C",
 				title: "Duration of Document Visits for Selected Segment"
 			})
 		// docVisitsBarChart = BarChart(
@@ -431,8 +431,8 @@ async function drawTimeline() {
 		d3.select('svg')
 			.call(zoom);
 	}
-	// var colour = d3.scaleOrdinal(['#FF355E','#FA4616']);
-	var colour = d3.scaleOrdinal(['#FA4616']);
+	// var colour = d3.scaleOrdinal(['#FF355E','#2175AD']);
+	var colour = d3.scaleOrdinal(['#2175AD']);
 
 	//Timeline rectangles
 	var timesegments = svg.selectAll("myRect")
@@ -481,19 +481,19 @@ async function drawTimeline() {
 			
 		})
 		.on('click', function(e, i) {
-			if(d3.select(this).style("fill")=="darkblue"){
+			if(d3.select(this).style("fill")=="#16225C"){
 				// alert('hey')
-				d3.selectAll(timesegments).style("fill", "#FA4616");
+				d3.selectAll(timesegments).style("fill", "#2175AD");
 				var segmentChartsDiv = document.getElementById("timelineDivSegmentContent");
 				segmentChartsDiv.style.display = "none";
 				var logsdiv = document.getElementById("interactionLog");
 				segmentChartsDiv.style.display = "none";
 				logsdiv.style.display = "none";
 			}else{
-				d3.selectAll(timesegments).style("fill", "#FA4616")
+				d3.selectAll(timesegments).style("fill", "#2175AD")
 			
             d3.select(this)
-                .style('fill', 'darkblue');
+                .style('fill', '#16225C');
             var docs = handleSegmentClick(i);
 			d3.selectAll(timesegments)
 			.filter(function(d, i) {
@@ -508,9 +508,9 @@ async function drawTimeline() {
 					return true;
 				}
 				// return i % 2 === 0;
-		  	}).style('fill', 'green');
+		  	}).style('fill', '#004D41');
 			d3.select(this)
-			  .style('fill', 'darkblue');
+			  .style('fill', '#16225C');
 			}
 		})
 	

@@ -41,7 +41,8 @@ body {
     margin-bottom: auto;
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(#FA4616, #0021A5);
+    background-image: linear-gradient(#37373B, #293B45);
+    color: white;
 }
 
 #navbar button
@@ -85,7 +86,7 @@ svg {
 #header
 {
     border-radius: 4px 4px 0px 0px;
-    background-color: #FA4616;
+    background-color: #323C52;
     height: 5vh;
     display: flex;
     flex-direction: row;
@@ -96,7 +97,7 @@ svg {
 #userSelectorDiv
 {
     margin: auto;
-    background-color: #0021A5;
+    background-color: #16225C;
     border-radius: 3px;
 }
 
@@ -106,13 +107,16 @@ svg {
     width: 70px;
     margin-top: 6px;
     border: none;
-    background-color: #63beff;
+    background-color: #2175AD;
 }
 .userSelectionButton:hover
 {
     background-color: beige;
 }
 
+#participantDivContent {
+    display: flex !important;
+}
 #participantDivContent svg {
     margin: 6px;
 }
