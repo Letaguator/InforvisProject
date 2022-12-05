@@ -98,23 +98,23 @@ async function drawTimeline() {
 
 	});
 	document.getElementById('moveRight').addEventListener("click", function() {
-		d3.select('svg')
-			.transition()
+		// d3.select('svg')
+			svg.transition()
 			.call(zoom.translateBy, -500, 0);
 	});
 	document.getElementById('moveLeft').addEventListener("click", function() {
-		d3.select('svg')
-			.transition()
+		// d3.select('svg')
+			svg.transition()
 			.call(zoom.translateBy, 500, 0);
 	});
 	document.getElementById('zoomIn').addEventListener("click", function() {
-		d3.select('svg')
-			.transition()
+		// d3.select('svg')
+			svg.transition()
 			.call(zoom.scaleBy, 1.5);
 	});
 	document.getElementById('zoomOut').addEventListener("click", function() {
-		d3.select('svg')
-			.transition()
+		// d3.select('svg')
+			svg.transition()
 			.call(zoom.scaleBy, 0.5);
 	});
 	var allDocs = getAllDocs();
@@ -423,13 +423,13 @@ async function drawTimeline() {
 		.translateExtent([[-90, 30], [width, height]]);
 
 	function handleZoom(e) {
-		d3.select('svg g')
-			.attr('transform', e.transform);
+		// d3.select('svg g')
+			svg.attr('transform', e.transform);
 	}
 
 	function initZoom() {
-		d3.select('svg')
-			.call(zoom);
+		// d3.select('svg')
+			svg.call(zoom);
 	}
 	// var colour = d3.scaleOrdinal(['#FF355E','#2175AD']);
 	var colour = d3.scaleOrdinal(['#2175AD']);
@@ -456,7 +456,8 @@ async function drawTimeline() {
 				.attr('opacity', '0.5')
 			div.transition()
 				.duration(100)
-				.style("opacity", 1);
+				.style("opacity", 1)
+				.style("display","block");
 			div.html(
 					`
                 <ul>
@@ -477,7 +478,8 @@ async function drawTimeline() {
 				.attr('opacity', '1')
 			div.transition()
 				.duration(100)
-				.style("opacity", 0);
+				.style("opacity", 0)
+				.style("display","none");;
 			
 		})
 		.on('click', function(e, i) {
