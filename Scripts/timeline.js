@@ -419,7 +419,7 @@ async function drawTimeline() {
 	
 	let zoom = d3.zoom()
 		.on('zoom', handleZoom)
-		.scaleExtent([0.5, 1.5])
+		// .scaleExtent([0.5, 1.5])
 		.translateExtent([[-90, 30], [width, height]]);
 
 	function handleZoom(e) {
@@ -429,7 +429,10 @@ async function drawTimeline() {
 
 	function initZoom() {
 		// d3.select('svg')
-			svg.call(zoom);
+			svg.call(zoom).on("mousedown.zoom", null)
+			.on("touchstart.zoom", null)
+			.on("touchmove.zoom", null)
+			.on("touchend.zoom", null);
 	}
 	// var colour = d3.scaleOrdinal(['#FF355E','#2175AD']);
 	var colour = d3.scaleOrdinal(['#2175AD']);
